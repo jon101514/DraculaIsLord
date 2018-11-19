@@ -26,8 +26,7 @@ void Application::InitVariables(void)
 	m_v3Player2 = vector3(10.0f, 0.0f, 0.0f);
 	m4Position = glm::translate(m_v3Player2);
 	m_pEntityMngr->SetModelMatrix(m4Position);
-	
-	//
+	// Commented this out so that it doesn't generate 500 squares.
 	/*
 	uint uInstances = 500;
 	int nSquare = static_cast<int>(std::sqrt(uInstances));
