@@ -105,6 +105,7 @@ xcopy "$(SolutionDir)include\Simplex\Shaders" "$(SolutionDir)_Binary\Shaders" /y
     <ClCompile Include="AppClassControls.cpp" />
     <ClCompile Include="AppClassGUI.cpp" />
     <ClCompile Include="AppClassMain.cpp" />
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="ControllerConfiguration.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyEntity.cpp" />
@@ -118,6 +119,7 @@ xcopy "$(SolutionDir)include\Simplex\Shaders" "$(SolutionDir)_Binary\Shaders" /y
     <ClInclude Include="..\include\imgui\imgui_internal.h" />
     <ClInclude Include="..\res\resource.h" />
     <ClInclude Include="AppClass.h" />
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="ControllerConfiguration.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="Main.h" />

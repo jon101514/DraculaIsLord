@@ -87,6 +87,8 @@ void Application::Update(void)
 	m_pEntityMngr->GetRigidBody(m_sP2ID)->SetModelMatrix(mPlayer2);
 	m_pMeshMngr->AddAxisToRenderList(mPlayer2);
 
+	
+
 	//Update Entity Manager
 	m_pEntityMngr->Update();
 
@@ -96,6 +98,12 @@ void Application::Update(void)
 		
 	//Add objects to render list
 	m_pEntityMngr->AddEntityToRenderList(-1, true);
+
+	//display and move the balls
+	for (int i = 0; i < m_lBallList.size(); i++)
+	{
+		m_lBallList[i]->Display();
+	}
 }
 void Application::Display(void)
 {
