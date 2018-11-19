@@ -137,6 +137,61 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			}
 		}
 		break;
+	case sf::Keyboard::Num1:
+		//BallCreationCode (Commented Out for now)
+		/*
+		Ball* TempBall = new Ball();
+		m_lBallList.push_back(TempBall);
+		*/
+		m_uballCount++;
+
+		break;
+	case sf::Keyboard::Num2:
+		for (uint i = 0; i < 5; i++)
+		{
+			//BallCreationCode (Commented Out for now)
+			/*
+			Ball* TempBall = new Ball();
+			m_lBallList.push_back(TempBall);
+			*/
+		}
+		m_uballCount += 5;
+
+		break;
+	case sf::Keyboard::Num3:
+		for (uint i = 0; i < 10; i++)
+		{
+			//BallCreationCode (Commented Out for now)
+			/*
+			Ball* TempBall = new Ball();
+			m_lBallList.push_back(TempBall);
+			*/
+		}
+		m_uballCount += 10;
+		break;
+	case sf::Keyboard::Num4:
+		for (uint i = 0; i < 50; i++)
+		{
+			//BallCreationCode (Commented Out for now)
+			/*
+			Ball* TempBall = new Ball();
+			m_lBallList.push_back(TempBall);
+			*/
+		}
+		m_uballCount += 50;
+		break;
+	case sf::Keyboard::Num5:
+		for (uint i = 0; i < 100; i++)
+		{
+			//BallCreationCode (Commented Out for now)
+			/*
+			Ball* TempBall = new Ball();
+			m_lBallList.push_back(TempBall);
+			*/
+		}
+		m_uballCount += 100;
+
+		break;
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;

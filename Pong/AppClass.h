@@ -28,6 +28,10 @@ private:
 	String m_sP1ID = "P1"; // Entity Manager's unique ID for the player 1 paddle.
 	String m_sP2ID = "P2"; // Entity Manager's unique ID for the player 2 paddle.
 
+	//vector for balls
+	//std::vector<Ball*> m_lBallList;
+	uint m_uballCount = 1;
+
 	const float M_FSPEED = 0.5f; // Movement speed of the player paddles.
 
 	static ImGuiObject gui; //GUI object
