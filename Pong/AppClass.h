@@ -11,6 +11,7 @@ Date: 2017/06
 #include "imgui\ImGuiObject.h"
 
 #include "MyEntityManager.h"
+#include "Ball.h"
 
 namespace Simplex
 {
@@ -29,7 +30,7 @@ private:
 	String m_sP2ID = "P2"; // Entity Manager's unique ID for the player 2 paddle.
 
 	//vector for balls
-	//std::vector<Ball*> m_lBallList;
+	std::vector<Ball*> m_lBallList;
 	uint m_uballCount = 1;
 
 	const float M_FSPEED = 0.5f; // Movement speed of the player paddles.

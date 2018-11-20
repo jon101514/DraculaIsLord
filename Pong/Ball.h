@@ -2,24 +2,33 @@
 Programmer: Alberto Bobadilla (labigm@gmail.com)
 Date: 2017/06
 ----------------------------------------------*/
-#ifndef __EXAMPLECLASS_H_
-#define __EXAMPLECLASS_H_
+#ifndef __BALL_H_
+#define __BALL_H_
 
 #include "Simplex\Simplex.h"
+#include "MyRigidBody.h"
+
 
 namespace Simplex
 {
-
 //System Class
 class Ball
 {
-	int m_nData = 0; //Number of elements in the list of elements
-	std::vector<int> m_lData; //list of elements
+	typedef glm::mat4 matrix4;
+	typedef glm::vec3 vector3;
+
+	MeshManager* m_pMeshMngr = nullptr; //manages the sphere shape
+	RigidBody* m_pRigidBody = nullptr; //manages the collider
+
+	std::vector<vector3> rbPoints; //list of points on the sphere
+
+	vector3 position; //the position of the ball
+	matrix4 m_m4ToWorld; //translates the sphere's coordinates to world coordinates
 
 public:
 	/*
 	Usage: Constructor
-	Arguments: ---
+	Arguments: 
 	Output: class object instance
 	*/
 	Ball(void);
@@ -50,32 +59,32 @@ public:
 	void Swap(Ball& other);
 
 	/*
-	Usage: Gets data member
+	Usage: Moves the ball depending on the forces applied
 	Arguments: ---
-	Output: data
-	*/
-	int GetData(void);
-	/*
-	Usage: Sets data member
-	Arguments: int a_nData = 1 -> data to set
 	Output: ---
 	*/
-	void SetData(int a_nData = 1);
-	/* Property */
-	//__declspec(property(get = GetData, put = SetData)) int Data;
+	void Move();
 
 	/*
-	Usage: adds data on vector
-	Arguments: int a_nData -> data to add
+	Usage: Displays the ball
+	Arguments: ---
 	Output: ---
 	*/
-	void SetDataOnVector(int a_nData);
+	void Display();
+
 	/*
-	Usage: gets data on vector at the specified entry
-	Arguments: int a_nIndex -> entry index 
-	Output: entry's content
+	Usage: Sets the current position of the ball
+	Arguments: vector3 position
+	Output: ---
 	*/
-	int& GetDataOnVector(int a_nIndex);
+	void SetPosition(vector3 a_v3Pos);
+
+	/*
+	Usage: Gets the current position of the ball
+	Arguments: ---
+	Output: vector3 position
+	*/
+	vector3 GetPosition(void);
 
 private:
 	/*

@@ -10,7 +10,6 @@ Date: 2017/07
 namespace Simplex
 {
 
-//System Class
 class MyEntity
 {
 	bool m_bInMemory = false; //loaded flag
