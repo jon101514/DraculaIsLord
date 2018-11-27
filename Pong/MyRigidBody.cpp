@@ -408,6 +408,12 @@ bool MyRigidBody::IsColliding(MyRigidBody* const other)
 	return bColliding;
 }
 
+bool Simplex::MyRigidBody::IsCollidingSphere(MyRigidBody * const other)
+{
+	return glm::distance(other->GetCenterGlobal(), GetCenterGlobal()) < other->GetRadius() + GetRadius();
+}
+
+
 void MyRigidBody::AddToRenderList(void)
 {
 	if (m_bVisibleBS)

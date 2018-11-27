@@ -19,6 +19,8 @@ void Ball::Init(void)
 
 	//set the speed
 	speed = 1.0f;
+
+	position = vector3(0.0f);
 }
 void Ball::Swap(Ball& other)
 {
@@ -28,10 +30,21 @@ void Ball::Swap(Ball& other)
 void Simplex::Ball::Move(float deltaTime)
 {
 	//change the position
-	//position = position + (direction * speed * deltaTime);
+	position = position + (direction * speed * deltaTime);
 
 	//translate the ball from its old position to the new position
 	m_m4ToWorld = glm::translate(m_m4ToWorld, (direction * speed * deltaTime));
+
+	//update the rigid body
+	m_pRigidBody->SetModelMatrix(m_m4ToWorld);
+}
+void Simplex::Ball::Move(vector3 moveVector)
+{
+	//change the position
+	position = position + (direction * speed * deltaTime);
+
+	//translate the ball from its old position to the new position
+	m_m4ToWorld = glm::translate(m_m4ToWorld, moveVector);
 
 	//update the rigid body
 	m_pRigidBody->SetModelMatrix(m_m4ToWorld);
@@ -125,6 +138,14 @@ void Simplex::Ball::GenerateSphere(int a_nSubdivisions, float a_fRadius)
 void Simplex::Ball::ChangeDirection(vector3 newDirection)
 {
 	direction = glm::normalize(newDirection);
+}
+vector3 Simplex::Ball::GetPosition()
+{
+	return position;
+}
+vector3 Simplex::Ball::GetDirection()
+{
+	return direction;
 }
 void Simplex::Ball::ChangeSpeed()
 {

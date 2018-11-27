@@ -107,6 +107,8 @@ public:
 	OUTPUT: are they colliding?
 	*/
 	bool IsColliding(MyRigidBody* const other);
+
+	bool IsCollidingSphere(MyRigidBody* const other);
 #pragma region Accessors
 	/*
 	Usage: Gets visibility of bounding sphere
