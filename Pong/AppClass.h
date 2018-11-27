@@ -33,6 +33,8 @@ private:
 	int m_n1PScore = 0; // Player 1's score.
 	int m_n2PScore = 0; // Player 2's score.
 
+	const float X_BOUND = 15.0f; // The magnitude of the left and right X-bounds we're checking against.
+
 	//vector for balls
 	std::vector<Ball*> m_lBallList;
 	uint m_uballCount = 1;
@@ -109,6 +111,13 @@ public:
 	OUTPUT: ---
 	*/
 	void Run(void);
+	/*
+	USAGE: Check to see if a ball's position is within a scoring bound and adds to that respective player's score.
+	ARGUMENTS:
+	- vector3 pos -> the position of the ball we're checking.
+	OUTPUT: ---
+	*/
+	void AddScore(vector3 pos);
 	/*
 	USAGE: Destructor
 	ARGUMENTS: ---

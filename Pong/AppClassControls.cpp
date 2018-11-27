@@ -143,8 +143,9 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
 		}
-		m_uballCount++;
 
+			m_uballCount++;
+		
 		break;
 	case sf::Keyboard::Num2:
 		for (uint i = 0; i < 5; i++)
@@ -169,10 +170,10 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		for (uint i = 0; i < 50; i++)
 		{
 			//BallCreationCode (Commented Out for now)
-			/*
+			
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			*/
+			
 		}
 		m_uballCount += 50;
 		break;
@@ -180,10 +181,10 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		for (uint i = 0; i < 100; i++)
 		{
 			//BallCreationCode (Commented Out for now)
-			/*
+			
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			*/
+			
 		}
 		m_uballCount += 100;
 

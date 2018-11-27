@@ -12,7 +12,7 @@ void Ball::Init(void)
 	GenerateSphere(12, 1.0f);
 	
 	//create the rigidbody for collision
-	m_pRigidBody = new RigidBody(rbPoints);
+	m_pRigidBody = new MyRigidBody(rbPoints);
 
 	//set the initial direction 
 	direction = vector3(1, 0, 0);
@@ -134,6 +134,10 @@ void Ball::Release(void)
 {
 	SafeDelete(m_pRigidBody);
 }
+RigidBody* Simplex::Ball::GetRigidBody(void)
+{
+	return m_pRigidBody;
+}
 //The big 3
 Ball::Ball(){Init();}
 Ball::Ball(Ball const& other)
@@ -152,5 +156,7 @@ Ball& Ball::operator=(Ball const& other)
 	return *this;
 }
 Ball::~Ball(){Release();};
+
+
 
 
