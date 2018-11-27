@@ -38,6 +38,10 @@ void Ball::Release(void)
 {
 	SafeDelete(m_pRigidBody);
 }
+RigidBody* Simplex::Ball::GetRigidBody(void)
+{
+	return m_pRigidBody;
+}
 //The big 3
 Ball::Ball(){Init();}
 Ball::Ball(Ball const& other)
@@ -56,5 +60,7 @@ Ball& Ball::operator=(Ball const& other)
 	return *this;
 }
 Ball::~Ball(){Release();};
+
+
 
 

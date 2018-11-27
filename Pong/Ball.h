@@ -26,6 +26,7 @@ class Ball
 	matrix4 m_m4ToWorld; //translates the sphere's coordinates to world coordinates
 
 public:
+	RigidBody* GetRigidBody(void);
 	/*
 	Usage: Constructor
 	Arguments: 
