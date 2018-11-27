@@ -27,7 +27,20 @@ sf::Image LoadImageFromResource(const std::string& name)
 Application::Application() {}
 Application::Application(Application const& input) {}
 Application& Application::operator=(Application const& input) { return *this; }
-Application::~Application(void) 
+void Application::AddScore(Ball* currBall) {
+	if (currBall->GetHasScored()) { // If this ball has already been accounted for in either player's score...
+		return; // Don't do anything.
+	}
+	if (currBall->GetPosition().x < -X_BOUND) { // The ball passes through the left bound, so 2P scores.
+		m_n2PScore += 1;
+		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
+	}
+	else if (currBall->GetPosition().x > X_BOUND) { // The ball passes through the right bound, so 1P scores.
+		m_n1PScore += 1;
+		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
+	}
+}
+Application::~Application(void)
 {
 	Release();
 	
@@ -162,15 +175,6 @@ void Application::Run(void)
 
 	//Write configuration of this program
 	WriteConfig();
-}
-
-void Simplex::Application::AddScore(vector3 pos) {
-	if (pos.x < -X_BOUND) { // The ball passes through the left bound, so 2P scores.
-		m_n2PScore += 1;
-	}
-	else if (pos.x > X_BOUND) { // The ball passes through the right bound, so 1P scores.
-		m_n1PScore += 1;
-	}
 }
 
 void Application::ClearScreen(vector4 a_v4ClearColor)

@@ -28,6 +28,8 @@ class Ball
 	float speed; //the speed of the ball
 	matrix4 m_m4ToWorld; //translates the sphere's coordinates to world coordinates
 
+	bool hasScored = false; // Whether or not this ball has been accounted for in terms of score.
+
 public:
 	MyRigidBody* GetRigidBody(void);
 	/*
@@ -48,6 +50,20 @@ public:
 	Output: ---
 	*/
 	Ball& operator=(Ball const& other);
+
+	/*
+	Usage: Getter for hasScored boolean.
+	Arguments: ---
+	Output: whether or not this ball has been used to calculate score.
+	*/
+	bool GetHasScored(void);
+	/*
+	Usage: Setter for hasScored boolean.
+	Arguments: 
+	bool newVal -> The new boolean value of hasScored.
+	Output: ---
+	*/
+	void SetHasScored(bool newVal);
 	/*
 	Usage: Destructor
 	Arguments: ---

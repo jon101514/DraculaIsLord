@@ -107,6 +107,7 @@ void Application::Update(void)
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
 		m_lBallList[i]->Move(deltaTime);
+		AddScore(m_lBallList[i]); // Check to see if this ball is within either player's scoring zone by passing each ball into AddScore.
 		m_lBallList[i]->Display();
 	}
 
@@ -131,7 +132,6 @@ void Application::Update(void)
 
 				m_lBallList[i]->Move(movement);
 				m_lBallList[j]->Move(-1 * movement);
-
 
 				vector3 temp = m_lBallList[i]->GetDirection();
 				m_lBallList[i]->ChangeDirection(m_lBallList[j]->GetDirection());
@@ -158,6 +158,7 @@ void Application::Update(void)
 		//player2->IsColliding(rbI);
 	}
 }
+
 void Application::Display(void)
 {
 	// Clear the screen

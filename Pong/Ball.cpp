@@ -40,6 +40,7 @@ void Simplex::Ball::Move(float deltaTime)
 
 	//update the rigid body
 	m_pRigidBody->SetModelMatrix(m_m4ToWorld);
+
 }
 void Simplex::Ball::Move(vector3 moveVector)
 {
@@ -162,6 +163,7 @@ MyRigidBody* Simplex::Ball::GetRigidBody(void)
 {
 	return m_pRigidBody;
 }
+
 //The big 3
 Ball::Ball(){Init();}
 Ball::Ball(Ball const& other)
@@ -178,6 +180,12 @@ Ball& Ball::operator=(Ball const& other)
 		Swap(temp);
 	}
 	return *this;
+}
+bool Simplex::Ball::GetHasScored(void){
+	return hasScored;
+}
+void Simplex::Ball::SetHasScored(bool newVal){
+	hasScored = newVal;
 }
 Ball::~Ball(){Release();};
 

@@ -117,7 +117,7 @@ public:
 	- vector3 pos -> the position of the ball we're checking.
 	OUTPUT: ---
 	*/
-	void AddScore(vector3 pos);
+	void AddScore(Ball* currBall);
 	/*
 	USAGE: Destructor
 	ARGUMENTS: ---
