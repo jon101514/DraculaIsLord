@@ -68,6 +68,10 @@ void Application::InitVariables(void)
 }
 void Application::Update(void)
 {
+
+	static uint uClock = m_pSystem->GenClock(); //generate a new clock for that timer
+	int deltaTime = m_pSystem->GetDeltaTime(uClock); //get the delta time for that timer
+
 	//Update the system so it knows how much time has passed since the last call
 	m_pSystem->Update();
 
