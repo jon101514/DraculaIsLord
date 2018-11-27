@@ -70,7 +70,7 @@ void Application::Update(void)
 {
 
 	static uint uClock = m_pSystem->GenClock(); //generate a new clock for that timer
-	int deltaTime = m_pSystem->GetDeltaTime(uClock); //get the delta time for that timer
+	float deltaTime = m_pSystem->GetDeltaTime(uClock); //get the delta time for that timer
 
 	//Update the system so it knows how much time has passed since the last call
 	m_pSystem->Update();
@@ -106,8 +106,40 @@ void Application::Update(void)
 	//display and move the balls
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
-		m_lBallList[i]->Move(delta);
+		m_lBallList[i]->Move(deltaTime);
 		m_lBallList[i]->Display();
+	}
+
+	// check ball collision with other balls
+	for (int i = 0; i < m_lBallList.size() - 1; i++)
+	{
+		RigidBody* rbI;
+		rbI = m_lBallList[i]->GetRigidBody();
+
+		for (int j = i + 1; j < m_lBallList.size(); j++)
+		{
+			RigidBody* rbJ = m_lBallList[j]->GetRigidBody();
+
+			rbI->IsColliding(rbJ);
+		}
+	}
+
+	// check collision with player 1 paddle
+	for (int i = 0; i < m_lBallList.size(); i++)
+	{
+		MyRigidBody* player1 = m_pEntityMngr->GetRigidBody(m_sP1ID);
+		RigidBody* rbI = m_lBallList[i]->GetRigidBody();
+
+		//player1->IsColliding(rbI);
+	}
+
+	// check collision with player 2 paddle
+	for (int i = 0; i < m_lBallList.size(); i++)
+	{
+		MyRigidBody* player2 = m_pEntityMngr->GetRigidBody(m_sP2ID);
+		RigidBody* rbI = m_lBallList[i]->GetRigidBody();
+
+		//player2->IsColliding(rbI);
 	}
 }
 void Application::Display(void)
