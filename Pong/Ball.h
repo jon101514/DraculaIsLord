@@ -23,6 +23,8 @@ class Ball
 	std::vector<vector3> rbPoints; //list of points on the sphere
 
 	vector3 position; //the position of the ball
+	vector3 direction; //the direction of the ball
+	float speed; //the speed of the ball
 	matrix4 m_m4ToWorld; //translates the sphere's coordinates to world coordinates
 
 public:
@@ -86,6 +88,7 @@ public:
 	*/
 	vector3 GetPosition(void);
 
+	void GenerateSphere(int a_nSubdivisions, float a_fRadius);
 private:
 	/*
 	Usage: Deallocates member fields
