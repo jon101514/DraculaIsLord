@@ -133,7 +133,9 @@ void Application::Update(void)
 				m_lBallList[j]->Move(-1 * movement);
 
 
-				vector3 temp = m_lBalllist[i]->GetDirection();
+				vector3 temp = m_lBallList[i]->GetDirection();
+				m_lBallList[i]->ChangeDirection(m_lBallList[j]->GetDirection());
+				m_lBallList[j]->ChangeDirection(temp);
 				
 			}
 		}

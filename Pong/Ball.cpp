@@ -41,7 +41,7 @@ void Simplex::Ball::Move(float deltaTime)
 void Simplex::Ball::Move(vector3 moveVector)
 {
 	//change the position
-	position = position + (direction * speed * deltaTime);
+	position = position + moveVector;
 
 	//translate the ball from its old position to the new position
 	m_m4ToWorld = glm::translate(m_m4ToWorld, moveVector);
@@ -155,7 +155,7 @@ void Ball::Release(void)
 {
 	SafeDelete(m_pRigidBody);
 }
-RigidBody* Simplex::Ball::GetRigidBody(void)
+MyRigidBody* Simplex::Ball::GetRigidBody(void)
 {
 	return m_pRigidBody;
 }

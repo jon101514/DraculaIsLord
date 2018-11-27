@@ -94,6 +94,7 @@ public:
 	vector3 GetPosition();
 
 	vector3 GetDirection();
+
 	/*
 	Usage: Changes the ball's speed
 	Arguments: ---
