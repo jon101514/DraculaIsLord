@@ -102,6 +102,7 @@ void Application::Update(void)
 	//display and move the balls
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
+		m_lBallList[i]->Move(delta);
 		m_lBallList[i]->Display();
 	}
 }
