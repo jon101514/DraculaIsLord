@@ -88,6 +88,7 @@ public:
 	*/
 	vector3 GetPosition(void);
 
+	void GenerateSphere(int a_nSubdivisions, float a_fRadius);
 private:
 	/*
 	Usage: Deallocates member fields
