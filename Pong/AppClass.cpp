@@ -129,16 +129,15 @@ void Application::Update(void)
 				
 				vector3 movement = m_lBallList[i]->GetPosition() - m_lBallList[j]->GetPosition();
 
-				float distToMove = 2 - glm::distance(m_lBallList[i]->GetPosition(), m_lBallList[j]->GetPosition());
+				float distToMove = 1 - glm::distance(m_lBallList[i]->GetPosition(), m_lBallList[j]->GetPosition());
 
 				movement = glm::normalize(movement) * distToMove;
 
 				m_lBallList[i]->Move(movement);
 				m_lBallList[j]->Move(-1 * movement);
 
-				vector3 temp = m_lBallList[i]->GetDirection();
-				m_lBallList[i]->ChangeDirection(m_lBallList[j]->GetDirection());
-				m_lBallList[j]->ChangeDirection(temp);
+				m_lBallList[i]->ChangeDirection(movement);
+				m_lBallList[j]->ChangeDirection(-1 * movement);
 			}
 		}
 	}

@@ -9,7 +9,7 @@ void Ball::Init(void)
 	//set the position of the sphere to the center of the world
 	m_m4ToWorld = glm::translate(vector3(0));
 
-	GenerateSphere(12, 1.0f);
+	GenerateSphere(12, 0.5f);
 	
 	//create the rigidbody for collision
 	m_pRigidBody = new MyRigidBody(rbPoints);
