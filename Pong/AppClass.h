@@ -21,13 +21,19 @@ class Application
 	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
 		
 private:
-	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer
+	String m_sTeam = "Dracula Is Lord"; //Team
+	String m_sProgrammers = "Vince DiCocco - vdd7204@rit.edu\nCharley Link - crl4975@rit.edu\nNoah Smith - nes9968@rit.edu\nJonathan So - jds7523@rit.edu"; //programmers
 
 	vector3 m_v3Player1; // Position of player 1's paddle
 	vector3 m_v3Player2; // Position of player 2's paddle
 
 	String m_sP1ID = "P1"; // Entity Manager's unique ID for the player 1 paddle.
 	String m_sP2ID = "P2"; // Entity Manager's unique ID for the player 2 paddle.
+
+	int m_n1PScore = 0; // Player 1's score.
+	int m_n2PScore = 0; // Player 2's score.
+
+	const float X_BOUND = 15.0f; // The magnitude of the left and right X-bounds we're checking against.
 
 	//vector for balls
 	std::vector<Ball*> m_lBallList;
@@ -105,6 +111,13 @@ public:
 	OUTPUT: ---
 	*/
 	void Run(void);
+	/*
+	USAGE: Check to see if a ball's position is within a scoring bound and adds to that respective player's score.
+	ARGUMENTS:
+	- vector3 pos -> the position of the ball we're checking.
+	OUTPUT: ---
+	*/
+	void AddScore(vector3 pos);
 	/*
 	USAGE: Destructor
 	ARGUMENTS: ---

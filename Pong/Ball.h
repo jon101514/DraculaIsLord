@@ -18,11 +18,12 @@ class Ball
 	typedef glm::vec3 vector3;
 
 	MeshManager* m_pMeshMngr = nullptr; //manages the sphere shape
-	RigidBody* m_pRigidBody = nullptr; //manages the collider
+	MyRigidBody* m_pRigidBody = nullptr; //manages the collider
 
 	std::vector<vector3> rbPoints; //list of points on the sphere
 
-	vector3 position; //the position of the ball
+	vector3 direction; //the direction of the ball
+	float speed; //the speed of the ball
 	matrix4 m_m4ToWorld; //translates the sphere's coordinates to world coordinates
 
 public:
@@ -61,10 +62,10 @@ public:
 
 	/*
 	Usage: Moves the ball depending on the forces applied
-	Arguments: ---
+	Arguments: Pass time in from the update
 	Output: ---
 	*/
-	void Move();
+	void Move(float deltaTime);
 
 	/*
 	Usage: Displays the ball
@@ -74,18 +75,18 @@ public:
 	void Display();
 
 	/*
-	Usage: Sets the current position of the ball
-	Arguments: vector3 position
+	Usage: Generates the points of a sphere for the rigidbody
+	Arguments: number of subdivisions in the sphere, size
 	Output: ---
 	*/
-	void SetPosition(vector3 a_v3Pos);
+	void GenerateSphere(int a_nSubdivisions, float a_fRadius);
 
 	/*
-	Usage: Gets the current position of the ball
-	Arguments: ---
-	Output: vector3 position
+	Usage: Changes the ball's direction
+	Arguments: a new direction to set the ball to
+	Output: ---
 	*/
-	vector3 GetPosition(void);
+	void ChangeDirection(vector3 newDirection);
 
 private:
 	/*
