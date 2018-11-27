@@ -18,7 +18,7 @@ class Ball
 	typedef glm::vec3 vector3;
 
 	MeshManager* m_pMeshMngr = nullptr; //manages the sphere shape
-	RigidBody* m_pRigidBody = nullptr; //manages the collider
+	MyRigidBody* m_pRigidBody = nullptr; //manages the collider
 
 	std::vector<vector3> rbPoints; //list of points on the sphere
 

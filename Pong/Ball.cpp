@@ -12,7 +12,7 @@ void Ball::Init(void)
 	GenerateSphere(12, 1.0f);
 	
 	//create the rigidbody for collision
-	m_pRigidBody = new RigidBody(rbPoints);
+	m_pRigidBody = new MyRigidBody(rbPoints);
 
 	//set the initial direction 
 	direction = vector3(1, 0, 0);
