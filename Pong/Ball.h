@@ -92,8 +92,18 @@ public:
 	*/
 	void ChangeDirection(vector3 newDirection);
 
+	/*
+	Usage: Gets the ball's positions
+	Arguments: ---
+	Output: ---
+	*/
 	vector3 GetPosition();
 
+	/*
+	Usage: Gets the ball's direction
+	Arguments: ---
+	Output: ---
+	*/
 	vector3 GetDirection();
 
 	/*
