@@ -5,6 +5,7 @@ Date: 2017/06
 #ifndef __BALL_H_
 #define __BALL_H_
 
+#include <random>
 #include "Simplex\Simplex.h"
 #include "MyRigidBody.h"
 

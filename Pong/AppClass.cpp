@@ -111,7 +111,7 @@ void Application::Update(void)
 	}
 
 	// check ball collision with other balls
-	for (int i = 0; i < m_lBallList.size() - 1; i++)
+	for (int i = 0; i < m_lBallList.size(); i++)
 	{
 		MyRigidBody* rbI;
 		rbI = m_lBallList[i]->GetRigidBody();
@@ -120,7 +120,7 @@ void Application::Update(void)
 		{
 			MyRigidBody* rbJ = m_lBallList[j]->GetRigidBody();
 
-			if (rbI->IsColliding(rbJ)) 
+			if (rbI->IsCollidingSphere(rbJ)) 
 			{
 				
 				vector3 movement = m_lBallList[i]->GetPosition() - m_lBallList[j]->GetPosition();
@@ -136,7 +136,6 @@ void Application::Update(void)
 				vector3 temp = m_lBallList[i]->GetDirection();
 				m_lBallList[i]->ChangeDirection(m_lBallList[j]->GetDirection());
 				m_lBallList[j]->ChangeDirection(temp);
-				
 			}
 		}
 	}

@@ -16,7 +16,10 @@ void Ball::Init(void)
 
 	//set the initial direction 
 	direction = vector3(1, 0, 0);
+	direction.x = (std::rand() - (float)RAND_MAX / 2) / (float)RAND_MAX;
+	direction.y = (std::rand() - (float)RAND_MAX / 2) / (float)RAND_MAX;
 
+	direction = glm::normalize(direction);
 	//set the speed
 	speed = 1.0f;
 

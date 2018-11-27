@@ -410,7 +410,7 @@ bool MyRigidBody::IsColliding(MyRigidBody* const other)
 
 bool Simplex::MyRigidBody::IsCollidingSphere(MyRigidBody * const other)
 {
-	return glm::distance(other->GetCenterGlobal(), GetCenterGlobal()) < other->GetRadius() + GetRadius();
+	return glm::distance(other->GetCenterGlobal(), GetCenterGlobal()) < other->GetHalfWidth().x+ GetHalfWidth().x;
 }
 
 
