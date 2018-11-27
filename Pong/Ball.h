@@ -22,12 +22,13 @@ class Ball
 
 	std::vector<vector3> rbPoints; //list of points on the sphere
 
+	vector3 position;
 	vector3 direction; //the direction of the ball
 	float speed; //the speed of the ball
 	matrix4 m_m4ToWorld; //translates the sphere's coordinates to world coordinates
 
 public:
-	RigidBody* GetRigidBody(void);
+	MyRigidBody* GetRigidBody(void);
 	/*
 	Usage: Constructor
 	Arguments: 
@@ -60,6 +61,7 @@ public:
 	*/
 	void Swap(Ball& other);
 
+	
 	/*
 	Usage: Moves the ball depending on the forces applied
 	Arguments: Pass time in from the update
@@ -67,6 +69,7 @@ public:
 	*/
 	void Move(float deltaTime);
 
+	void Move(vector3 moveVector);
 	/*
 	Usage: Displays the ball
 	Arguments: ---
@@ -88,6 +91,9 @@ public:
 	*/
 	void ChangeDirection(vector3 newDirection);
 
+	vector3 GetPosition();
+
+	vector3 GetDirection();
 private:
 	/*
 	Usage: Deallocates member fields

@@ -106,21 +106,36 @@ void Application::Update(void)
 	//display and move the balls
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
-		m_lBallList[i]->Move(delta);
+		m_lBallList[i]->Move(deltaTime);
 		m_lBallList[i]->Display();
 	}
 
 	// check ball collision with other balls
 	for (int i = 0; i < m_lBallList.size() - 1; i++)
 	{
-		RigidBody* rbI;
+		MyRigidBody* rbI;
 		rbI = m_lBallList[i]->GetRigidBody();
 
 		for (int j = i + 1; j < m_lBallList.size(); j++)
 		{
-			RigidBody* rbJ = m_lBallList[j]->GetRigidBody();
+			MyRigidBody* rbJ = m_lBallList[j]->GetRigidBody();
 
-			rbI->IsColliding(rbJ);
+			if (rbI->IsColliding(rbJ)) 
+			{
+				
+				vector3 movement = m_lBallList[i]->GetPosition() - m_lBallList[j]->GetPosition();
+
+				float distToMove = 2 - glm::distance(m_lBallList[i]->GetPosition(), m_lBallList[j]->GetPosition());
+
+				movement = glm::normalize(movement) * distToMove;
+
+				m_lBallList[i]->Move(movement);
+				m_lBallList[j]->Move(-1 * movement);
+
+
+				vector3 temp = m_lBalllist[i]->GetDirection();
+				
+			}
 		}
 	}
 
@@ -128,16 +143,16 @@ void Application::Update(void)
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
 		MyRigidBody* player1 = m_pEntityMngr->GetRigidBody(m_sP1ID);
-		RigidBody* rbI = m_lBallList[i]->GetRigidBody();
+		MyRigidBody* rbI = m_lBallList[i]->GetRigidBody();
 
-		//player1->IsColliding(rbI);
+		player1->IsColliding(rbI);
 	}
 
 	// check collision with player 2 paddle
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
 		MyRigidBody* player2 = m_pEntityMngr->GetRigidBody(m_sP2ID);
-		RigidBody* rbI = m_lBallList[i]->GetRigidBody();
+		MyRigidBody* rbI = m_lBallList[i]->GetRigidBody();
 
 		//player2->IsColliding(rbI);
 	}
