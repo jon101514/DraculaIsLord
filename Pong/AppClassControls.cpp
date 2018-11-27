@@ -491,6 +491,15 @@ void Application::ProcessKeyboard(void)
 		m_v3Player2.y += M_FSPEED;
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
 		m_v3Player2.y -= M_FSPEED;
+
+	// DEBUG FOR TESTING
+	// Adds 1 point to Player 1's side.
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		AddScore(vector3(20));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
+		AddScore(vector3(-20));
+	}
 #pragma endregion
 }
 //Joystick
