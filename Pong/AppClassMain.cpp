@@ -163,6 +163,16 @@ void Application::Run(void)
 	//Write configuration of this program
 	WriteConfig();
 }
+
+void Simplex::Application::AddScore(vector3 pos) {
+	if (pos.x < -X_BOUND) { // The ball passes through the left bound, so 2P scores.
+		m_n2PScore += 1;
+	}
+	else if (pos.x > X_BOUND) { // The ball passes through the right bound, so 1P scores.
+		m_n1PScore += 1;
+	}
+}
+
 void Application::ClearScreen(vector4 a_v4ClearColor)
 {
 	if (a_v4ClearColor != vector4(-1.0f))
