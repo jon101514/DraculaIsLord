@@ -20,6 +20,7 @@ void Ball::Swap(Ball& other)
 }
 void Simplex::Ball::Move()
 {
+	position = position * direction * speed;
 }
 void Simplex::Ball::Display()
 {
