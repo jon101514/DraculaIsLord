@@ -55,9 +55,7 @@ void Simplex::Ball::GenerateSphere(int a_nSubdivisions, float a_fRadius)
 	if (a_nSubdivisions > 36)
 		a_nSubdivisions = 36;
 
-	Release();
-	Init();
-
+	rbPoints.clear();
 	// Replace this with your code
 	//top and bottom of sphere
 	vector3 top(0, a_fRadius, 0);
@@ -127,6 +125,10 @@ void Simplex::Ball::GenerateSphere(int a_nSubdivisions, float a_fRadius)
 void Simplex::Ball::ChangeDirection(vector3 newDirection)
 {
 	direction = glm::normalize(newDirection);
+}
+void Simplex::Ball::ChangeSpeed()
+{
+	speed = speed + 0.5f;
 }
 void Ball::Release(void)
 {

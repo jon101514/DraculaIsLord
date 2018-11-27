@@ -87,6 +87,13 @@ public:
 	*/
 	void ChangeDirection(vector3 newDirection);
 
+	/*
+	Usage: Changes the ball's speed
+	Arguments: ---
+	Output: ---
+	*/
+	void ChangeSpeed();
+
 private:
 	/*
 	Usage: Deallocates member fields

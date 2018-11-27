@@ -139,10 +139,10 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		break;
 	case sf::Keyboard::Num1:
 		//BallCreationCode (Commented Out for now)
-		/*
-		Ball* TempBall = new Ball();
-		m_lBallList.push_back(TempBall);
-		*/
+		{
+			Ball* TempBall = new Ball();
+			m_lBallList.push_back(TempBall);
+		}
 		m_uballCount++;
 
 		break;
