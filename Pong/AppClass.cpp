@@ -80,13 +80,16 @@ void Application::Update(void)
 
 	//Is the first person camera active?
 	CameraRotation();
-	
-	matrix4 mPlayer1 = glm::translate(m_v3Player1) * ToMatrix4(m_qArcBall);
+
+	matrix4 m4Scale = glm::scale(IDENTITY_M4, vector3(1.0f, 3.0f, 1.0f)); // Scale up our paddles to make them rectanglar.
+
+	// Set up both paddles in the Entity Manager.
+	matrix4 mPlayer1 = m4Scale * glm::translate(m_v3Player1) * ToMatrix4(m_qArcBall);
 	m_pEntityMngr->GetModel(m_sP1ID)->SetModelMatrix(mPlayer1);
 	m_pEntityMngr->GetRigidBody(m_sP1ID)->SetModelMatrix(mPlayer1);
 	m_pMeshMngr->AddAxisToRenderList(mPlayer1);
 
-	matrix4 mPlayer2 = glm::translate(m_v3Player2) * ToMatrix4(m_qArcBall);
+	matrix4 mPlayer2 = m4Scale * glm::translate(m_v3Player2) * ToMatrix4(m_qArcBall);
 	m_pEntityMngr->GetModel(m_sP2ID)->SetModelMatrix(mPlayer2);
 	m_pEntityMngr->GetRigidBody(m_sP2ID)->SetModelMatrix(mPlayer2);
 	m_pMeshMngr->AddAxisToRenderList(mPlayer2);
