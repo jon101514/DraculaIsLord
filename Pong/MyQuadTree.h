@@ -6,38 +6,38 @@
 
 namespace Simplex
 {
-class MyQuadTree
-{
-	uint m_uID = 0;
-	uint m_uLevel = 0;
+	class MyQuadTree
+	{
+		uint m_uID = 0;
+		uint m_uLevel = 0;
 
-	MyQuadTree* m_pChildren[8];
+		MyQuadTree* m_pChildren[8];
 
-	float m_fSize = 0.0f;
+		float m_fSize = 0.0f;
 
-	std::vector<MyRigidBody> m_containedObjects;
+		std::vector<MyRigidBody> m_containedObjects;
 
-	vector3 m_v3Center = vector3(0.0f);
-	vector3 m_v3Min = vector3(0.0f);
-	vector3 m_v3Max = vector3(0.0f);
+		vector3 m_v3Center = vector3(0.0f);
+		vector3 m_v3Min = vector3(0.0f);
+		vector3 m_v3Max = vector3(0.0f);
 
-	MyQuadTree* m_pRoot = nullptr;
-	std::vector<MyQuadTree*> m_lChild;
+		MyQuadTree* m_pRoot = nullptr;
+		std::vector<MyQuadTree*> m_lChild;
 
-public:
-	void Init();
-	void Delete();
-	MyQuadTree();
-	MyQuadTree(vector3 center, float size);
-	~MyQuadTree();
-	void IsColliding();
-	void Display();
-	void Subdivide();
-	bool IsLeaf();
-	void ConstructList(int maxLevel, int ideal_Count);
-	void KillBranches();
-};
-}
+	public:
+		void Init();
+		void Delete();
+		MyQuadTree();
+		~MyQuadTree();
+		void IsColliding();
+		void Display();
+		void Subdivide();
+		bool IsLeaf();
+		void ConstructList(int maxLevel, int ideal_Count);
+		void KillBranches();
+		void AssignID();
+		void AnnihilateID();
+	};
 
 #endif //__MYQUADTREECLASS_H_
-
+}
