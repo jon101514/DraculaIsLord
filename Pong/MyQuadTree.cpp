@@ -14,6 +14,10 @@ MyQuadTree::MyQuadTree()
 {
 }
 
+Simplex::MyQuadTree::MyQuadTree(vector3 center, float size)
+{
+}
+
 
 MyQuadTree::~MyQuadTree()
 {
@@ -33,7 +37,7 @@ void MyQuadTree::Subdivide()
 
 bool MyQuadTree::IsLeaf()
 {
-	return false;
+	return m_pChildren[0] == nullptr && !m_containedObjects.empty();
 }
 
 void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
