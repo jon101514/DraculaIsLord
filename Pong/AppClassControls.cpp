@@ -481,15 +481,15 @@ void Application::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
 
 	// Move Player 1's Paddle.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && m_v3Player1.y < Y_BOUND)
 		m_v3Player1.y += M_FSPEED;
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && m_v3Player1.y > -Y_BOUND)
 		m_v3Player1.y -= M_FSPEED;
 
 	// Move Player 2's Paddle.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U) && m_v3Player2.y < Y_BOUND)
 		m_v3Player2.y += M_FSPEED;
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::J) && m_v3Player2.y > -Y_BOUND)
 		m_v3Player2.y -= M_FSPEED;
 
 	/*

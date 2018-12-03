@@ -142,22 +142,17 @@ void Application::Update(void)
 		}
 	}
 
-	// check collision with player 1 paddle
-	for (int i = 0; i < m_lBallList.size(); i++)
-	{
-		MyRigidBody* player1 = m_pEntityMngr->GetRigidBody(m_sP1ID);
-		MyRigidBody* rbI = m_lBallList[i]->GetRigidBody();
+	// Ball : Paddle collisions. Let's check all of the balls against both of the paddles within the same loop.
+	for (int i = 0; i < m_lBallList.size(); i++) {
+		Ball* currBall = m_lBallList[i]; // This is the current ball we're checking.
+		MyRigidBody* player1 = m_pEntityMngr->GetRigidBody(m_sP1ID); // Player 1.
+		MyRigidBody* player2 = m_pEntityMngr->GetRigidBody(m_sP2ID); // Player 2.
+		MyRigidBody* rbI = currBall->GetRigidBody();
 
-		player1->IsColliding(rbI);
-	}
-
-	// check collision with player 2 paddle
-	for (int i = 0; i < m_lBallList.size(); i++)
-	{
-		MyRigidBody* player2 = m_pEntityMngr->GetRigidBody(m_sP2ID);
-		MyRigidBody* rbI = m_lBallList[i]->GetRigidBody();
-
-		//player2->IsColliding(rbI);
+		if (player1->IsColliding(rbI) || player2->IsColliding(rbI)) { // A Player has hit our current ball.
+			currBall->ChangeDirection(vector3(-1 * currBall->GetDirection().x, currBall->GetDirection().y, currBall->GetDirection().z));
+			currBall->ChangeSpeed(); // Also, let's make the ball move a bit faster.
+		}
 	}
 }
 

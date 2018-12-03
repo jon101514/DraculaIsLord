@@ -34,10 +34,11 @@ private:
 	int m_n2PScore = 0; // Player 2's score.
 
 	const float X_BOUND = 15.0f; // The magnitude of the left and right X-bounds we're checking against.
+	const float Y_BOUND = 4.5f; // The magnitude of the top and bottom Y-bounds we're checking against.
 
 	//vector for balls
 	std::vector<Ball*> m_lBallList;
-	uint m_uballCount = 1;
+	uint m_uballCount = 0;
 
 	const float M_FSPEED = 0.5f; // Movement speed of the player paddles.
 
