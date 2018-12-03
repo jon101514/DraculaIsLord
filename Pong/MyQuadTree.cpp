@@ -43,3 +43,11 @@ void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
 void MyQuadTree::KillBranches()
 {
 }
+
+void Simplex::MyQuadTree::AssignID()
+{
+}
+
+void Simplex::MyQuadTree::AnnihilateID()
+{
+}
