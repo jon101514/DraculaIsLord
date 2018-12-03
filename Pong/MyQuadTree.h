@@ -28,6 +28,7 @@ namespace Simplex
 		void Init();
 		void Delete();
 		MyQuadTree();
+		MyQuadTree(vector3 center, float size);
 		~MyQuadTree();
 		void IsColliding();
 		void Display();
