@@ -1,5 +1,5 @@
 #include "MyQuadTree.h"
-
+using namespace Simplex;
 
 
 void MyQuadTree::Init()
