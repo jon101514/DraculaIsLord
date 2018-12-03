@@ -7,6 +7,7 @@ namespace Simplex
 class MyQuadTree
 {
 	uint m_uID = 0;
+	uint m_uLevel = 0;
 
 	MyQuadTree* m_pChildren[8];
 
