@@ -15,7 +15,7 @@ namespace Simplex
 
 		float m_fSize = 0.0f;
 
-		std::vector<MyRigidBody> m_containedObjects;
+		std::vector<MyRigidBody*> m_containedObjects;
 
 		vector3 m_v3Center = vector3(0.0f);
 		vector3 m_v3Min = vector3(0.0f);
@@ -27,7 +27,7 @@ namespace Simplex
 	public:
 		void Init();
 		void Delete();
-		MyQuadTree();
+		MyQuadTree(std::vector<MyRigidBody*> rbList);
 		MyQuadTree(vector3 center, float size);
 		~MyQuadTree();
 		void IsColliding();
