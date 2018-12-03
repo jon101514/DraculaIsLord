@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __MYQUADTREECLASS_H_
+#define __MYQUADTREECLASS_H_
+
 #include <vector>
 #include "MyRigidBody.h"
 
@@ -27,4 +29,6 @@ public:
 	~MyQuadTree();
 };
 }
+
+#endif //__MYQUADTREECLASS_H_
 
