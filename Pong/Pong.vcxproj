@@ -110,6 +110,7 @@ xcopy "$(SolutionDir)include\Simplex\Shaders" "$(SolutionDir)_Binary\Shaders" /y
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyEntity.cpp" />
     <ClCompile Include="MyEntityManager.cpp" />
+    <ClCompile Include="MyQuadTree.cpp" />
     <ClCompile Include="MyRigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,7 @@ xcopy "$(SolutionDir)include\Simplex\Shaders" "$(SolutionDir)_Binary\Shaders" /y
     <ClInclude Include="Main.h" />
     <ClInclude Include="MyEntity.h" />
     <ClInclude Include="MyEntityManager.h" />
+    <ClInclude Include="MyQuadTree.h" />
     <ClInclude Include="MyRigidBody.h" />
   </ItemGroup>
   <ItemGroup>
