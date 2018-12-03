@@ -36,7 +36,7 @@ namespace Simplex
 		void ConstructList(int maxLevel, int ideal_Count);
 		void KillBranches();
 		void AssignID();
-		void AnnsihilateID();
+		void AnnihilateID();
 	};
 
 #endif //__MYQUADTREECLASS_H_
