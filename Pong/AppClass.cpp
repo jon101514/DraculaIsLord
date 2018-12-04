@@ -5,11 +5,13 @@ void Application::InitVariables(void)
 	//Alberto needed this at this position for software recording.
 	//m_pWindow->setPosition(sf::Vector2i(710, 0));
 
-	//Set the position and target of the camera
+	//Set the position and target of the camera so that it's focused on the game.
 	m_pCameraMngr->SetPositionTargetAndUpward(
 		vector3(0.0f, 0.0f, 100.0f), //Position
 		vector3(0.0f, 0.0f, 99.0f),	//Target
 		AXIS_Y);					//Up
+	m_pCameraMngr->SetCameraMode(CAM_ORTHO_Z);
+	m_pCameraMngr->SetPosition(vector3(0.0f, -1.5f, 16.0f));
 
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 	
