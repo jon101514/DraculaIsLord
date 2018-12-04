@@ -28,8 +28,13 @@ private:
 	vector3 m_v3Player1; // Position of player 1's paddle
 	vector3 m_v3Player2; // Position of player 2's paddle
 
+	vector3 m_v3TopWall; // Position of top wall
+	vector3 m_v3LowWall; // Position of low wall
+
 	String m_sP1ID = "P1"; // Entity Manager's unique ID for the player 1 paddle.
 	String m_sP2ID = "P2"; // Entity Manager's unique ID for the player 2 paddle.
+	String m_sTWID = "TopWall"; // Entity Manager's unique ID for the top wall.
+	String m_sLWID = "LowWall"; // Entity Manager's unique ID for the low wall.
 
 	int m_n1PScore = 0; // Player 1's score.
 	int m_n2PScore = 0; // Player 2's score.
@@ -73,10 +78,24 @@ private:
 	ControllerInput* m_pController[8]; //Controller
 	uint m_uActCont = 0; //Active Controller of the Application
 
-	sf::SoundBuffer m_soundBuffer; //buffer to play sound from
-	sf::Sound m_sound; //sound effect
-	sf::Music m_soundBGM; //background music
-
+	// Sound buffers for the five sound effects we have in our game.
+	// Player 1's Paddle Hit.
+	sf::SoundBuffer m_sbP1; 
+	sf::Sound m_sP1;
+	// Player 2's Paddle Hit.
+	sf::SoundBuffer m_sbP2;
+	sf::Sound m_sP2;
+	// Wall Hit.
+	sf::SoundBuffer m_sbWall;
+	sf::Sound m_sWall;
+	// Player 1 Scores.
+	sf::SoundBuffer m_sbP1Score;
+	sf::Sound m_sP1Score;
+	// Player 2 Scores.
+	sf::SoundBuffer m_sbP2Score;
+	sf::Sound m_sP2Score;
+//	sf::Music m_soundBGM; //background music
+	
 	MyQuadTree* rootQuad = nullptr;
 public:
 #pragma region Constructor / Run / Destructor

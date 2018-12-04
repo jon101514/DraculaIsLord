@@ -15,17 +15,42 @@ void Application::InitVariables(void)
 	
 	//Entity Manager
 	m_pEntityMngr = MyEntityManager::GetInstance();
-	// Create the first object.
+	// Create the first paddle.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sP1ID);
 	m_v3Player1 = vector3(-10.0f, 0.0f, 0.0f);
 	matrix4 m4Position = glm::translate(m_v3Player1);
 	m_pEntityMngr->SetModelMatrix(m4Position);
 	
-	// Create the second object.
+	// Create the second paddle.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sP2ID);
 	m_v3Player2 = vector3(10.0f, 0.0f, 0.0f);
 	m4Position = glm::translate(m_v3Player2);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+
+	// Make the top wall.
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sTWID);
+	m_v3TopWall = vector3(-0.5f, 15.5f, 0.0f);
+	m4Position = glm::translate(m_v3TopWall);
+	m_pEntityMngr->SetModelMatrix(m4Position);
+
+	// Make the bottom wall.
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sLWID);
+	m_v3LowWall = vector3(-0.5f, -13.5f, 0.0f);
+	m4Position = glm::translate(m_v3LowWall);
+	m_pEntityMngr->SetModelMatrix(m4Position);
+
+	// Set up our Sound Buffers so that we may play sound effects.
+	m_sbP1.loadFromFile("FsLo.wav");
+	m_sP1.setBuffer(m_sbP1);
+	m_sbP2.loadFromFile("FsHi.wav");
+	m_sP2.setBuffer(m_sbP2);
+	m_sbWall.loadFromFile("Cs.wav");
+	m_sWall.setBuffer(m_sbWall);
+	m_sbP1Score.loadFromFile("AsLo.wav");
+	m_sP1Score.setBuffer(m_sbP1Score);
+	m_sbP2Score.loadFromFile("AsHi.wav");
+	m_sP2Score.setBuffer(m_sbP2Score);
+
 	// Commented this out so that it doesn't generate 500 squares.
 	/*
 	uint uInstances = 500;
@@ -98,7 +123,18 @@ void Application::Update(void)
 	m_pEntityMngr->GetRigidBody(m_sP2ID)->SetModelMatrix(mPlayer2);
 	m_pMeshMngr->AddAxisToRenderList(mPlayer2);
 
-	
+	// Set up both walls in the Entity Manager.
+	matrix4 m4WallScale = glm::scale(IDENTITY_M4, vector3(30.0f, 1.0f, 1.0f)); // Now, use a different scale to stretch the walls horizontally.
+
+	matrix4 mTopWall = m4WallScale * glm::translate(m_v3TopWall) * ToMatrix4(m_qArcBall);
+	m_pEntityMngr->GetModel(m_sTWID)->SetModelMatrix(mTopWall);
+	m_pEntityMngr->GetRigidBody(m_sTWID)->SetModelMatrix(mTopWall);
+	m_pMeshMngr->AddAxisToRenderList(mTopWall);
+
+	matrix4 mLowWall = m4WallScale * glm::translate(m_v3LowWall) * ToMatrix4(m_qArcBall);
+	m_pEntityMngr->GetModel(m_sLWID)->SetModelMatrix(mLowWall);
+	m_pEntityMngr->GetRigidBody(m_sLWID)->SetModelMatrix(mLowWall);
+	m_pMeshMngr->AddAxisToRenderList(mLowWall);
 
 	//Update Entity Manager
 	m_pEntityMngr->Update();
@@ -150,15 +186,24 @@ void Application::Update(void)
 	}
 
 	// Ball : Paddle collisions. Let's check all of the balls against both of the paddles within the same loop.
+	// Ball : Wall collisions. Check those within this loop as well.
 	for (int i = 0; i < m_lBallList.size(); i++) {
 		Ball* currBall = m_lBallList[i]; // This is the current ball we're checking.
 		MyRigidBody* player1 = m_pEntityMngr->GetRigidBody(m_sP1ID); // Player 1.
 		MyRigidBody* player2 = m_pEntityMngr->GetRigidBody(m_sP2ID); // Player 2.
+		MyRigidBody* topWall = m_pEntityMngr->GetRigidBody(m_sTWID); // Top Wall.
+		MyRigidBody* lowWall = m_pEntityMngr->GetRigidBody(m_sLWID); // Low Wall.
 		MyRigidBody* rbI = currBall->GetRigidBody();
 
 		if (player1->IsColliding(rbI) || player2->IsColliding(rbI)) { // A Player has hit our current ball.
 			currBall->ChangeDirection(vector3(-1 * currBall->GetDirection().x, currBall->GetDirection().y, currBall->GetDirection().z));
 			currBall->ChangeSpeed(); // Also, let's make the ball move a bit faster.
+			if (player1->IsColliding(rbI)) { m_sP1.play(); }
+			else { m_sP2.play(); }
+		}
+		if (topWall->IsColliding(rbI) || lowWall->IsColliding(rbI)) { // A ball has contacted a wall.
+			currBall->ChangeDirection(vector3(currBall->GetDirection().x, -1 * currBall->GetDirection().y, currBall->GetDirection().z));
+			m_sWall.play();
 		}
 	}
 }

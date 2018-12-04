@@ -43,16 +43,18 @@ void Application::DrawGUI(void)
 			ImGui::Text("BallCount: %u\n",
 				m_uballCount);
 			ImGui::Text("Control:\n");
-			ImGui::Text("   WASD: Movement\n");
+			ImGui::Text("R / F: 1P Up / Down\n");
+			ImGui::Text("U / J: 2P Up / Down\n");
+			ImGui::Text("   WASD: Camera Movement\n");
 			ImGui::Text("	 F1: Perspective\n");
 			ImGui::Text("	 F2: Orthographic X\n");
 			ImGui::Text("	 F3: Orthographic Y\n");
 			ImGui::Text("	 F4: Orthographic Z\n");
-			ImGui::Text("	 Num1: Add 1 Ball Z\n");
-			ImGui::Text("	 Num3: Add 5 Ball Z\n");
-			ImGui::Text("	 Num1: Add 10 Ball Z\n");
-			ImGui::Text("	 Num4: Add 50 Ball Z\n");
-			ImGui::Text("	 Num5: Add 100 Ball Z\n");
+			ImGui::Text("	 Num1: Add 1 Ball\n");
+			ImGui::Text("	 Num2: Add 5 Balls\n");
+			ImGui::Text("	 Num3: Add 10 Balls\n");
+			ImGui::Text("	 Num4: Add 50 Balls\n");
+			ImGui::Text("	 Num5: Add 100 Balls\n");
 			ImGui::Separator();
 			ImGui::TextColored(ImColor(255, 255, 0), "Spatial Optimization\n");
 

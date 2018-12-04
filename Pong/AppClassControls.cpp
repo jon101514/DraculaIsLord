@@ -72,7 +72,7 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	{
 	default: break;
 	case sf::Keyboard::Space:
-		m_sound.play();
+		m_sP1.play();
 		break;
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
@@ -495,16 +495,6 @@ void Application::ProcessKeyboard(void)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::J) && m_v3Player2.y > -Y_BOUND)
 		m_v3Player2.y -= M_FSPEED;
 
-	/*
-	// DEBUG FOR TESTING
-	// Adds 1 point to Player 1's side.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-		AddScore(vector3(20));
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
-		AddScore(vector3(-20));
-	}
-	*/
 #pragma endregion
 }
 //Joystick

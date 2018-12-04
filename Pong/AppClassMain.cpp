@@ -33,10 +33,12 @@ void Application::AddScore(Ball* currBall) {
 	}
 	if (currBall->GetPosition().x < -X_BOUND) { // The ball passes through the left bound, so 2P scores.
 		m_n2PScore += 1;
+		m_sP2Score.play();
 		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
 	}
 	else if (currBall->GetPosition().x > X_BOUND) { // The ball passes through the right bound, so 1P scores.
 		m_n1PScore += 1;
+		m_sP1Score.play();
 		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
 	}
 }
