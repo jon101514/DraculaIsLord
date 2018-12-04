@@ -62,7 +62,8 @@ void Application::InitVariables(void)
 		}
 	}
 	*/
-	rootQuad = new MyQuadTree();
+	rootQuad = new MyQuadTree(std::vector<MyRigidBody*>());
+
 
 	m_pEntityMngr->Update();
 	//steve
