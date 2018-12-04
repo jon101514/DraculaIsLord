@@ -11,7 +11,7 @@ namespace Simplex
 		uint m_uID = 0;
 		uint m_uLevel = 0;
 
-		MyQuadTree* m_pChildren[8];
+		MyQuadTree* m_pChildren[4];
 
 		float m_fSize = 0.0f;
 

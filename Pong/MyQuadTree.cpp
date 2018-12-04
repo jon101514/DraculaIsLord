@@ -180,7 +180,7 @@ void MyQuadTree::KillBranches()
 {
 	m_lChild.clear();
 
-	for (uint i = 0; i < 8; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		SafeDelete(m_pChildren[i]);
 	}
