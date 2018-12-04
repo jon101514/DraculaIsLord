@@ -27,34 +27,29 @@ sf::Image LoadImageFromResource(const std::string& name)
 Application::Application() {}
 Application::Application(Application const& input) {}
 Application& Application::operator=(Application const& input) { return *this; }
-void Application::AddScore(Ball* currBall) {
+bool Application::AddScore(Ball* currBall) {
 	if (currBall->GetHasScored()) { // If this ball has already been accounted for in either player's score...
-		return; // Don't do anything.
+		return false; // Don't do anything.
 	}
 	if (currBall->GetPosition().x < -X_BOUND) { // The ball passes through the left bound, so 2P scores.
 		m_n2PScore += 1;
 		m_sP2Score.play();
 		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
+		return true;
 	}
 	else if (currBall->GetPosition().x > X_BOUND) { // The ball passes through the right bound, so 1P scores.
 		m_n1PScore += 1;
 		m_sP1Score.play();
 		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
+		return true;
 	}
 
-	bool scored = currBall->GetHasScored();
-	if (scored == true) // delete all balls and spawn one in the middle
-	{
-		if (resetEnable == true) // only if reset is enabled
-		{
-			ResetBalls();
-		}
-	}
+	return false;
 }
 
 void Application::ResetBalls()
 {
-	/*
+	
 	for (int i = 0; i < m_lBallList.size(); i++) // delete the current balls
 	{
 		if (i <= m_lBallList.size())
@@ -69,7 +64,7 @@ void Application::ResetBalls()
 	m_lBallList.push_back(TempBall);
 	rootQuad->AddEntity(TempBall->GetRigidBody());
 	m_uballCount++;
-	*/
+	
 }
 Application::~Application(void)
 {

@@ -121,12 +121,17 @@ void Application::Update(void)
 	//Add objects to render list
 	m_pEntityMngr->AddEntityToRenderList(-1, true);
 
+	bool wasScore = false;
 	//display and move the balls
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{
 		m_lBallList[i]->Move(deltaTime);
-		AddScore(m_lBallList[i]); // Check to see if this ball is within either player's scoring zone by passing each ball into AddScore.
+		wasScore = wasScore || AddScore(m_lBallList[i]); // Check to see if this ball is within either player's scoring zone by passing each ball into AddScore.
 		m_lBallList[i]->Display();
+	}
+
+	if (resetEnable && wasScore) {
+		ResetBalls();
 	}
 
 	if (QuadTree) {
@@ -136,7 +141,7 @@ void Application::Update(void)
 		{
 			bStarted = true;
 			m_pSystem->StartTimerOnClock(0.5, nClock);
-			
+
 			for (uint i = 0; i < m_lBallList.size(); i++)
 			{
 				MyRigidBody* rb = m_lBallList[i]->GetRigidBody();
