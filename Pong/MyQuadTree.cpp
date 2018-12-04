@@ -206,6 +206,8 @@ bool MyQuadTree::IsLeaf()
 
 void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
 {
+	Subdivide(maxLevel, ideal_Count);
+	AssignID();
 }
 
 void MyQuadTree::KillBranches()
