@@ -71,9 +71,12 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	switch (a_event.key.code)
 	{
 	default: break;
+		/*
+		// Test sound capabilities.
 	case sf::Keyboard::Space:
 		m_sP1.play();
 		break;
+		*/
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = true;
