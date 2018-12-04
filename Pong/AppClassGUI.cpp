@@ -55,6 +55,8 @@ void Application::DrawGUI(void)
 			ImGui::Text("	 Num3: Add 10 Balls\n");
 			ImGui::Text("	 Num4: Add 50 Balls\n");
 			ImGui::Text("	 Num5: Add 100 Balls\n");
+			ImGui::Text("	 Z: Toggle Automatic Reset\n");
+			ImGui::Text("	 X: Manual Reset\n");
 			ImGui::Separator();
 			ImGui::TextColored(ImColor(255, 255, 0), "Spatial Optimization\n");
 

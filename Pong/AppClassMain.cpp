@@ -57,7 +57,9 @@ void Application::ResetBalls()
 	/*
 	for (int i = 0; i < m_lBallList.size(); i++) // delete the current balls
 	{
-		m_lBallList[i]->Release();
+		if (i <= m_lBallList.size())
+			if (m_lBallList[i] != nullptr)
+				SafeDelete(m_lBallList[i]);
 	}
 	m_uballCount = 0;
 	m_lBallList.clear();
