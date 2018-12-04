@@ -16,9 +16,9 @@ void MyQuadTree::Release()
 
 	SafeDelete(mainQuad);
 
-	for (uint i = 0; i < m_containedObjects.size(); i++)
+	for (uint i = 0; i < m_ContainedObjects.size(); i++)
 	{
-		SafeDelete(m_containedObjects[i]);
+		SafeDelete(m_ContainedObjects[i]);
 	}
 }
 
@@ -35,7 +35,7 @@ void Simplex::MyQuadTree::Swap(MyQuadTree & other)
 
 	std::swap(m_fSize, other.m_fSize);
 
-	std::swap(m_containedObjects, other.m_containedObjects);
+	std::swap(m_ContainedObjects, other.m_ContainedObjects);
 
 	std::swap(mainQuad, other.mainQuad);
 
@@ -56,15 +56,15 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 	m_pRoot = this;
 
 	//get the entity list and the count
-	m_containedObjects = rbList;
+	m_ContainedObjects = rbList;
 
 	std::vector<vector3> m_v3List;
 
 	//create the main quadrant
-	for (int i = 0; i < m_containedObjects.size(); i++)
+	for (int i = 0; i < m_ContainedObjects.size(); i++)
 	{
-		m_v3Max = m_containedObjects[i]->GetMaxGlobal();
-		m_v3Min = m_containedObjects[i]->GetMinGlobal();
+		m_v3Max = m_ContainedObjects[i]->GetMaxGlobal();
+		m_v3Min = m_ContainedObjects[i]->GetMinGlobal();
 
 		m_v3List.push_back(m_v3Min);
 		m_v3List.push_back(m_v3Max);
@@ -83,8 +83,8 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 
 	//create the quads
 	Subdivide();
-	m_ContainedObjects = rbList;
 }
+
 
 Simplex::MyQuadTree::MyQuadTree(vector3 center, float size)
 {

@@ -35,7 +35,6 @@ namespace Simplex
 		~MyQuadTree();
 		MyQuadTree(MyQuadTree const &other);
 		MyQuadTree & operator=(MyQuadTree const & other);
-		void IsColliding();
 		bool IsColliding(MyRigidBody collider);
 		void Display();
 		void Subdivide();
