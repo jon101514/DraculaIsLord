@@ -137,41 +137,70 @@ void Simplex::MyRigidBody::AddDimension(uint dimension)
 		return;
 	}
 
-	m_lDimensions.push_back(dimension);
+	m_DimensionList.push_back(dimension);
+	m_uMainDimension = dimension;
+	m_nDimensionCount++;
 }
 void Simplex::MyRigidBody::ClearDimensionList()
 {
-	m_lDimensions.clear();
+	m_DimensionList.clear();
+	m_nDimensionCount = 0;
+	m_uMainDimension = 0;
 }
-bool Simplex::MyRigidBody::SharesDimension(MyRigidBody other)
+bool Simplex::MyRigidBody::SharesDimension(MyRigidBody* a_pOther)
 {
-	uint lSize = m_lDimensions.size();
-
-	if (lSize == 0 || other.m_lDimensions.size() == 0) {
-		return true;
+	//special case: if there are no dimensions on either MyEntity
+	//if both entities have no dimension set then they live in the special global dimension
+	if (0 == m_nDimensionCount)
+	{
+		//if no spatial optimization all cases should fall here as every 
+		//entity is by default, under the special global dimension only
+		if (0 == a_pOther->m_nDimensionCount)
+			return true;
 	}
 
-	for (uint i = 0; i < lSize; i++)
+	//special case if there are only one dimension on each MyEntity
+	if (1 == m_nDimensionCount)
 	{
-		if (other.IsInDimension(m_lDimensions[i])) {
-			return true;
+		if (1 == a_pOther->m_nDimensionCount)
+		{
+			//as there is only one dimension we check the main dimension only
+			return m_uMainDimension == a_pOther->m_uMainDimension;
 		}
 	}
 
-	return false;
-}
-bool Simplex::MyRigidBody::IsInDimension(uint dimension)
-{
-	uint length = m_lDimensions.size();
-
-	for (uint i = 0; i < length; i++)
+	//we tried to avoid this case as indexing is more expensive
+	//for each dimension on both Entities we check if there is a common dimension
+	for (uint i = 0; i < m_nDimensionCount; ++i)
 	{
-		if (dimension == m_lDimensions[i]) {
-			return true;
+		for (uint j = 0; j < a_pOther->m_nDimensionCount; j++)
+		{
+			if (m_DimensionList[i] == a_pOther->m_DimensionList[j])
+				return true; //as soon as we find one we know they share dimensionality
 		}
 	}
 
+	//could not find a common dimension
 	return false;
+}
+bool Simplex::MyRigidBody::IsInDimension(uint a_uDimension)
+{
+	//see if the entry is in the set
+	for (uint i = 0; i < m_DimensionList.size(); i++)
+	{
+		if (m_DimensionList[i] == a_uDimension)
+			return true;
+	}
+	return false;
+}
+void Simplex::MyRigidBody::MakeSquare2D()
+{
+	float newSize = glm::max(m_v3MaxL.x, m_v3MaxL.y);
+	float newMin = glm::min(m_v3MinL.x, m_v3MinL.y);
+	m_v3MaxG = m_v3MaxL = vector3(newSize, newSize, 1);
+	m_v3MinG = m_v3MinL = vector3(newMin, newMin, -1);
+
+	m_v3HalfWidth = (m_v3MaxL - m_v3MinL) / 2;
 }
 //The big 3
 MyRigidBody::MyRigidBody(std::vector<vector3> a_pointList)
@@ -410,7 +439,7 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 }
 bool MyRigidBody::IsColliding(MyRigidBody* const other)
 {
-	if (!SharesDimension(*other)) {
+	if (!SharesDimension(other)) {
 		return false;
 	}
 
@@ -456,7 +485,7 @@ bool MyRigidBody::IsColliding(MyRigidBody* const other)
 
 bool Simplex::MyRigidBody::IsCollidingSphere(MyRigidBody * const other)
 {
-	if (!SharesDimension(*other)) {
+	if (!SharesDimension(other)) {
 		return false;
 	}
 

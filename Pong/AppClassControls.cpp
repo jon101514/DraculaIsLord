@@ -192,6 +192,16 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		m_uballCount += 100;
 
 		break;
+	case sf::Keyboard::Num6:
+		if (QuadTree == true) {
+			QuadTree = false;
+			rootQuad->KillBranches();
+			rootQuad->AnnihilateID();
+		}
+		else {
+			QuadTree = true;
+		}
+		break;
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;

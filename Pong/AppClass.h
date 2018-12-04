@@ -70,6 +70,8 @@ private:
 	bool m_bRunning = false; //Is App running?
 	bool m_bModifier = false; //is shift pressed?
 
+	bool QuadTree = false;
+
 	sf::Window* m_pWindow = nullptr; //SFML window
 	SystemSingleton* m_pSystem = nullptr; //Singleton of the system
 	LightManager* m_pLightMngr = nullptr; //Light Manager of the system

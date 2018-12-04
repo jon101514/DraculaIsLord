@@ -154,8 +154,28 @@ void Application::Update(void)
 		m_lBallList[i]->Display();
 	}
 
-	rootQuad->KillBranches();
-	rootQuad->ConstructList(1, 5);
+	if (QuadTree) {
+		/*for (uint i = 0; i < m_lBallList.size(); i++)
+		{
+			MyRigidBody* rb = m_lBallList[i]->GetRigidBody();
+
+			rb->ClearDimensionList();
+			if (rb->GetCenterGlobal().x + rb->GetHalfWidth().x < 0.0f) {
+				rb->AddDimension(0);
+			}
+			else {
+				rb->AddDimension(1);
+			}
+		}
+
+		m_pEntityMngr->GetRigidBody(m_sP1ID)->AddDimension(0);
+		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(1);*/
+
+		rootQuad->KillBranches();
+		rootQuad->ConstructList(1, 5);
+		rootQuad->Display();
+	}
+
 
 	// check ball collision with other balls
 	for (int i = 0; i < m_lBallList.size(); i++)

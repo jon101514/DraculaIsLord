@@ -19,6 +19,9 @@ class MyRigidBody
 	bool m_bVisibleOBB = true; //Visibility of Oriented bounding box
 	bool m_bVisibleARBB = true; //Visibility of axis (Re)aligned bounding box
 
+	int m_nDimensionCount;
+	uint m_uMainDimension;
+
 	float m_fRadius = 0.0f; //Radius
 
 	vector3 m_v3ColorColliding = C_RED; //Color when colliding
@@ -41,7 +44,7 @@ class MyRigidBody
 	uint m_nCollidingSetSize = 0; //size of the colliding set
 	std::set<MyRigidBody*> m_CollidingRBSet; //set of rigid bodies this one is colliding with
 
-	std::vector<uint> m_lDimensions;
+	std::vector<uint> m_DimensionList;
 public:
 	/*
 	Usage: Constructor
@@ -234,8 +237,10 @@ public:
 
 	void AddDimension(uint dimension);
 	void ClearDimensionList();
-	bool SharesDimension(MyRigidBody other);
+	bool SharesDimension(MyRigidBody* other);
 	bool IsInDimension(uint dimension);
+
+	void MakeSquare2D();
 #pragma endregion
 	
 private:
