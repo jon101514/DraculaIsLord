@@ -23,8 +23,26 @@ MyQuadTree::~MyQuadTree()
 {
 }
 
-void MyQuadTree::IsColliding()
+bool MyQuadTree::IsColliding(MyRigidBody collider)
 {
+	if (m_v3Max.x < collider.GetMinGlobal().x) {
+
+		return false;
+	}
+	if (m_v3Min.x > collider.GetMaxGlobal().x) {
+
+		return false;
+	}
+	if (m_v3Max.y < collider.GetMinGlobal().y) {
+
+		return false;
+	}
+	if (m_v3Min.y > collider.GetMaxGlobal().y) {
+
+		return false;
+	}
+
+	return true;
 }
 
 void MyQuadTree::Display()

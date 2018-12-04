@@ -30,7 +30,7 @@ namespace Simplex
 		MyQuadTree();
 		MyQuadTree(vector3 center, float size);
 		~MyQuadTree();
-		void IsColliding();
+		bool IsColliding(MyRigidBody collider);
 		void Display();
 		void Subdivide();
 		bool IsLeaf();
