@@ -179,6 +179,7 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 	m_pChildren[2] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, 0), fSize);
 	m_pChildren[3] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, 0), fSize);
 
+
 	for (uint i = 0; i < 4; i++)
 	{
 		//check every entity under the child
@@ -187,7 +188,7 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 			m_pChildren[i]->IsColliding(*m_ContainedObjects[j]);
 		}
 		
-		m_pChildren[i]->m_uID = m_uID + glm::pow(4, m_uID + 1);
+		m_pChildren[i]->m_uID =i + glm::pow(4, m_uID) + 1;
 
 		//increment level
 		m_pChildren[i]->m_uLevel = m_uLevel + 1;
