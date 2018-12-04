@@ -174,10 +174,10 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 	float fSize = (v3HalfWidth.x) / 2.0f;
 	float fCenters = fSize;
 
-	m_pChildren[0] = new MyQuadTree(v3Center + vector3(fCenters, fCenters, fCenters), fSize);
-	m_pChildren[1] = new MyQuadTree(v3Center + vector3(-fCenters, fCenters, fCenters), fSize);
-	m_pChildren[2] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, fCenters), fSize);
-	m_pChildren[3] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, fCenters), fSize);
+	m_pChildren[0] = new MyQuadTree(v3Center + vector3(fCenters, fCenters, 0), fSize);
+	m_pChildren[1] = new MyQuadTree(v3Center + vector3(-fCenters, fCenters, 0), fSize);
+	m_pChildren[2] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, 0), fSize);
+	m_pChildren[3] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, 0), fSize);
 
 	for (uint i = 0; i < 4; i++)
 	{
