@@ -85,7 +85,6 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 	Subdivide();
 }
 
-
 Simplex::MyQuadTree::MyQuadTree(vector3 center, float size)
 {
 	Init();
@@ -106,7 +105,28 @@ MyQuadTree::~MyQuadTree()
 
 Simplex::MyQuadTree::MyQuadTree(MyQuadTree const & other)
 {
+	m_uID = other.m_uID;
+	m_uLevel = other.m_uLevel;
 
+	for (uint i = 0; i < 8; i++)
+	{
+		if (other.m_pChildren[i] != NULL)
+			m_pChildren[i] = other.m_pChildren[i];
+	}
+
+	m_fSize = other.m_fSize;
+
+	m_ContainedObjects = other.m_ContainedObjects;
+
+	mainQuad = other.mainQuad;
+
+	m_v3Center = other.m_v3Center;
+	m_v3Min = other.m_v3Min;
+	m_v3Max = other.m_v3Max;
+
+	m_pRoot = other.m_pRoot;
+
+	m_lChild = other.m_lChild;
 }
 
 MyQuadTree & Simplex::MyQuadTree::operator=(MyQuadTree const & other)
