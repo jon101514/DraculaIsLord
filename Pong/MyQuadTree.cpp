@@ -187,6 +187,8 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 			m_pChildren[i]->IsColliding(*m_ContainedObjects[j]);
 		}
 		
+		m_pChildren[i]->m_uID = m_uID + glm::pow(4, m_uID + 1);
+
 		//increment level
 		m_pChildren[i]->m_uLevel = m_uLevel + 1;
 		//set all children's root to the big octant
