@@ -80,9 +80,6 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 	{
 		m_pChildren[i] = nullptr;
 	}
-
-	//create the quads
-	Subdivide();
 }
 
 Simplex::MyQuadTree::MyQuadTree(vector3 center, float size)
@@ -167,8 +164,45 @@ void MyQuadTree::Display()
 {
 }
 
-void MyQuadTree::Subdivide()
+void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 {
+	//stops the recursive process
+	if (m_uLevel >= maxLevel || m_ContainedObjects.size() <= ideal_Count) {
+		m_pRoot->m_lChild.push_back(this);
+		return;
+	}
+		
+	//allocate the smaller octants of this big octant
+	vector3 v3Center = mainQuad->GetCenterLocal();
+	vector3 v3HalfWidth = mainQuad->GetHalfWidth();
+	float fSize = (v3HalfWidth.x) / 2.0f;
+	float fCenters = fSize;
+
+	m_pChildren[0] = new MyQuadTree(v3Center + vector3(fCenters, fCenters, fCenters), fSize);
+	m_pChildren[1] = new MyQuadTree(v3Center + vector3(-fCenters, fCenters, fCenters), fSize);
+	m_pChildren[2] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, fCenters), fSize);
+	m_pChildren[3] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, fCenters), fSize);
+
+	m_pChildren[4] = new MyQuadTree(v3Center + vector3(fCenters, fCenters, -fCenters), fSize);
+	m_pChildren[5] = new MyQuadTree(v3Center + vector3(-fCenters, fCenters, -fCenters), fSize);
+	m_pChildren[6] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, -fCenters), fSize);
+	m_pChildren[7] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, -fCenters), fSize);
+
+	for (uint i = 0; i < 8; i++)
+	{
+		//check every entity under the child
+		for (uint j = 0; j < m_ContainedObjects.size(); j++)
+		{
+			m_pChildren[i]->IsColliding(*m_ContainedObjects[j]);
+		}
+		
+		//increment level
+		m_pChildren[i]->m_uLevel = m_uLevel + 1;
+		//set all children's root to the big octant
+		m_pChildren[i]->m_pRoot = m_pRoot;
+		//recursive
+		m_pChildren[i]->Subdivide(maxLevel, ideal_Count);
+	}
 }
 
 bool MyQuadTree::IsLeaf()
