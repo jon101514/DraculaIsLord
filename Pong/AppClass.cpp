@@ -22,24 +22,28 @@ void Application::InitVariables(void)
 	m_v3Player1 = vector3(-10.0f, 0.0f, 0.0f);
 	matrix4 m4Position = glm::translate(m_v3Player1);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sP1ID)->SetColorColliding(vector3(1.0f));
 	
 	// Create the second paddle.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sP2ID);
 	m_v3Player2 = vector3(10.0f, 0.0f, 0.0f);
 	m4Position = glm::translate(m_v3Player2);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sP2ID)->SetColorColliding(vector3(1.0f));
 
 	// Make the top wall.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sTWID);
 	m_v3TopWall = vector3(-0.5f, 15.5f, 0.0f);
 	m4Position = glm::translate(m_v3TopWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sTWID)->SetColorColliding(vector3(1.0f));
 
 	// Make the bottom wall.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sLWID);
 	m_v3LowWall = vector3(-0.5f, -13.5f, 0.0f);
 	m4Position = glm::translate(m_v3LowWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sLWID)->SetColorColliding(vector3(1.0f));
 
 	// Set up our Sound Buffers so that we may play sound effects.
 	m_sbP1.loadFromFile("FsLo.wav");
@@ -204,7 +208,8 @@ void Application::Update(void)
 			else { m_sP2.play(); }
 		}
 		if (topWall->IsColliding(rbI) || lowWall->IsColliding(rbI)) { // A ball has contacted a wall.
-			currBall->ChangeDirection(vector3(currBall->GetDirection().x, -1 * currBall->GetDirection().y, currBall->GetDirection().z));
+			// I multiply the Y- component by -1.1f instead of -1f to help prevent a glitch where a ball can get permanently stuck to a wall.
+			currBall->ChangeDirection(vector3(currBall->GetDirection().x, (-1.1f * currBall->GetDirection().y), currBall->GetDirection().z)); 
 			m_sWall.play();
 		}
 	}
