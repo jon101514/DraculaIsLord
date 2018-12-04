@@ -62,6 +62,8 @@ void Application::InitVariables(void)
 		}
 	}
 	*/
+	rootQuad = new MyQuadTree();
+
 	m_pEntityMngr->Update();
 	//steve
 	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
