@@ -62,6 +62,9 @@ void Application::InitVariables(void)
 		}
 	}
 	*/
+	rootQuad = new MyQuadTree(std::vector<MyRigidBody*>());
+
+
 	m_pEntityMngr->Update();
 	//steve
 	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");

@@ -12,6 +12,7 @@ Date: 2017/06
 
 #include "MyEntityManager.h"
 #include "Ball.h"
+#include "MyQuadTree.h"
 
 namespace Simplex
 {
@@ -76,6 +77,7 @@ private:
 	sf::Sound m_sound; //sound effect
 	sf::Music m_soundBGM; //background music
 
+	MyQuadTree* rootQuad = nullptr;
 public:
 #pragma region Constructor / Run / Destructor
 	/*
