@@ -9,7 +9,7 @@ void MyQuadTree::Init()
 
 void MyQuadTree::Release()
 {
-	for (uint i = 0; i < 8; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		SafeDelete(m_pChildren[i]);
 	}
@@ -22,7 +22,7 @@ void Simplex::MyQuadTree::Swap(MyQuadTree & other)
 	std::swap(m_uID, other.m_uID);
 	std::swap(m_uLevel, other.m_uLevel);
 
-	for (uint i = 0; i < 8; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		if (other.m_pChildren[i] != NULL)
 			std::swap(m_pChildren[i], other.m_pChildren[i]);
@@ -71,7 +71,7 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 	m_v3Max = mainQuad->GetMaxGlobal();
 	m_v3Min = mainQuad->GetMinGlobal();
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		m_pChildren[i] = nullptr;
 	}
@@ -100,7 +100,7 @@ Simplex::MyQuadTree::MyQuadTree(MyQuadTree const & other)
 	m_uID = other.m_uID;
 	m_uLevel = other.m_uLevel;
 
-	for (uint i = 0; i < 8; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		if (other.m_pChildren[i] != NULL)
 			m_pChildren[i] = other.m_pChildren[i];
@@ -179,12 +179,7 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 	m_pChildren[2] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, fCenters), fSize);
 	m_pChildren[3] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, fCenters), fSize);
 
-	m_pChildren[4] = new MyQuadTree(v3Center + vector3(fCenters, fCenters, -fCenters), fSize);
-	m_pChildren[5] = new MyQuadTree(v3Center + vector3(-fCenters, fCenters, -fCenters), fSize);
-	m_pChildren[6] = new MyQuadTree(v3Center + vector3(-fCenters, -fCenters, -fCenters), fSize);
-	m_pChildren[7] = new MyQuadTree(v3Center + vector3(fCenters, -fCenters, -fCenters), fSize);
-
-	for (uint i = 0; i < 8; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		//check every entity under the child
 		for (uint j = 0; j < m_ContainedObjects.size(); j++)
@@ -214,7 +209,7 @@ void MyQuadTree::KillBranches()
 {
 	m_lChild.clear();
 
-	for (uint i = 0; i < 8; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		SafeDelete(m_pChildren[i]);
 	}
