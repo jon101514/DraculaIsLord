@@ -15,7 +15,7 @@ namespace Simplex
 
 		float m_fSize = 0.0f;
 
-		std::vector<MyRigidBody*> m_containedObjects;
+		std::vector<MyRigidBody*> m_ContainedObjects;
 
 		vector3 m_v3Center = vector3(0.0f);
 		vector3 m_v3Min = vector3(0.0f);
