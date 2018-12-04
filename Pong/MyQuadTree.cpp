@@ -130,24 +130,35 @@ MyQuadTree & Simplex::MyQuadTree::operator=(MyQuadTree const & other)
 
 bool MyQuadTree::IsColliding(MyRigidBody* collider)
 {
-	if (m_v3Max.x < collider->GetMinGlobal().x) {
+	//initial collision check
+	bool bColliding = true;
 
+	//if any of these are colliding, check sphere collision
+	if (bColliding) {
+		if (m_v3Max.x < collider->GetMinGlobal().x) {
+			bColliding = false;
+		}
+		if (m_v3Min.x > collider->GetMaxGlobal().x) {
+			bColliding = false;
+		}
+		if (m_v3Max.y < collider->GetMinGlobal().y) {
+			bColliding = false;
+		}
+		if (m_v3Min.y > collider->GetMaxGlobal().y) {
+			bColliding = false;
+		}
+	}
+
+	//now check for sphere collision
+	if (bColliding) {
+		for (uint i = 0; i < m_ContainedObjects.size(); i++)
+		{
+			return this->m_ContainedObjects[i]->IsCollidingSphere(collider);
+		}
+	}
+	else {
 		return false;
 	}
-	if (m_v3Min.x > collider->GetMaxGlobal().x) {
-
-		return false;
-	}
-	if (m_v3Max.y < collider->GetMinGlobal().y) {
-
-		return false;
-	}
-	if (m_v3Min.y > collider->GetMaxGlobal().y) {
-
-		return false;
-	}
-
-	return true;
 }
 
 void MyQuadTree::Display()
