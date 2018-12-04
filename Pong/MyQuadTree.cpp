@@ -188,7 +188,7 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 			m_pChildren[i]->IsColliding(*m_ContainedObjects[j]);
 		}
 		
-		m_pChildren[i]->m_uID =i + glm::pow(4, m_uID) + 1;
+		m_pChildren[i]->m_uID = i * glm::pow(10, m_uID) + m_uID;
 
 		//increment level
 		m_pChildren[i]->m_uLevel = m_uLevel + 1;
