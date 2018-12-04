@@ -192,6 +192,18 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		m_uballCount += 100;
 
 		break;
+
+	case sf::Keyboard::Z: // toggle reset
+	{
+		if (resetEnable)
+			resetEnable = false;
+		else if (!resetEnable)
+			resetEnable = true;
+	}
+
+	case sf::Keyboard::X: // manually reset balls
+		ResetBalls();
+
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;

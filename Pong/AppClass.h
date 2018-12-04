@@ -97,7 +97,11 @@ private:
 //	sf::Music m_soundBGM; //background music
 	
 	MyQuadTree* rootQuad = nullptr;
+
+	bool resetEnable = true;
+
 public:
+	void ResetBalls(void);
 #pragma region Constructor / Run / Destructor
 	/*
 	USAGE: Constructor

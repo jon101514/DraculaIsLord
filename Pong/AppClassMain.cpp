@@ -41,6 +41,33 @@ void Application::AddScore(Ball* currBall) {
 		m_sP1Score.play();
 		currBall->SetHasScored(true); // Make sure we make a note that we've already accounted for this ball.
 	}
+
+	bool scored = currBall->GetHasScored();
+	if (scored == true) // delete all balls and spawn one in the middle
+	{
+		if (resetEnable == true) // only if reset is enabled
+		{
+			ResetBalls();
+		}
+	}
+}
+
+void Application::ResetBalls()
+{
+	/*
+	for (int i = 0; i < m_lBallList.size(); i++) // delete the current balls
+	{
+		m_lBallList[i]->Release();
+	}
+	m_uballCount = 0;
+	m_lBallList.clear();
+
+	// spawn a new ball in the middle
+	Ball* TempBall = new Ball();
+	m_lBallList.push_back(TempBall);
+	rootQuad->AddEntity(TempBall->GetRigidBody());
+	m_uballCount++;
+	*/
 }
 Application::~Application(void)
 {

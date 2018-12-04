@@ -128,6 +128,7 @@ public:
 	Output: ---
 	*/
 	void ChangeSpeed();
+	void Release(void);
 
 private:
 	/*
@@ -135,7 +136,7 @@ private:
 	Arguments: ---
 	Output: ---
 	*/
-	void Release(void);
+	//void Release(void);
 	/*
 	Usage: Allocates member fields
 	Arguments: ---
