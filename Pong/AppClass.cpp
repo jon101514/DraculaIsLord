@@ -202,15 +202,23 @@ void Application::Update(void)
 		MyRigidBody* rbI = currBall->GetRigidBody();
 
 		if (player1->IsColliding(rbI) || player2->IsColliding(rbI)) { // A Player has hit our current ball.
-			currBall->ChangeDirection(vector3(-1 * currBall->GetDirection().x, currBall->GetDirection().y, currBall->GetDirection().z));
+			// currBall->ChangeDirection(vector3(-1.0f * currBall->GetDirection().x, currBall->GetDirection().y, currBall->GetDirection().z));
 			currBall->ChangeSpeed(); // Also, let's make the ball move a bit faster.
-			if (player1->IsColliding(rbI)) { m_sP1.play(); }
-			else { m_sP2.play(); }
+			if (player1->IsColliding(rbI)) { 
+				currBall->ChangeDirection(vector3(-1.0f * (currBall->GetDirection().x - 1.0f), currBall->GetDirection().y, currBall->GetDirection().z));
+				m_sP1.play(); 
+			} else { 
+				currBall->ChangeDirection(vector3(-1.0f * (currBall->GetDirection().x + 1.0f), currBall->GetDirection().y, currBall->GetDirection().z));
+				m_sP2.play(); 
+			}
 		}
 		if (topWall->IsColliding(rbI) || lowWall->IsColliding(rbI)) { // A ball has contacted a wall.
-			// I multiply the Y- component by -1.1f instead of -1f to help prevent a glitch where a ball can get permanently stuck to a wall.
-			currBall->ChangeDirection(vector3(currBall->GetDirection().x, (-1.1f * currBall->GetDirection().y), currBall->GetDirection().z)); 
 			m_sWall.play();
+			if (topWall->IsColliding(rbI)) {
+				currBall->ChangeDirection(vector3(currBall->GetDirection().x, (-1.0f * (currBall->GetDirection().y + 1.0f)), currBall->GetDirection().z));
+			} else {
+				currBall->ChangeDirection(vector3(currBall->GetDirection().x, (-1.0f * (currBall->GetDirection().y - 1.0f)), currBall->GetDirection().z));
+			}
 		}
 	}
 }
