@@ -41,6 +41,7 @@ class MyRigidBody
 	uint m_nCollidingSetSize = 0; //size of the colliding set
 	std::set<MyRigidBody*> m_CollidingRBSet; //set of rigid bodies this one is colliding with
 
+	std::vector<uint> m_lDimensions;
 public:
 	/*
 	Usage: Constructor
@@ -230,6 +231,11 @@ public:
 	Output: ---
 	*/
 	void SetModelMatrix(matrix4 a_m4ModelMatrix);
+
+	void AddDimension(uint dimension);
+	void ClearDimensionList();
+	bool SharesDimension(MyRigidBody other);
+	bool IsInDimension(uint dimension);
 #pragma endregion
 	
 private:

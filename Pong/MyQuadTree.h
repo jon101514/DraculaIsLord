@@ -15,7 +15,7 @@ namespace Simplex
 
 		float m_fSize = 0.0f;
 
-		std::vector<MyRigidBody*> m_containedObjects;
+		std::vector<MyRigidBody*> m_ContainedObjects;
 
 		MyRigidBody* mainQuad;
 
@@ -36,6 +36,7 @@ namespace Simplex
 		MyQuadTree(MyQuadTree const &other);
 		MyQuadTree & operator=(MyQuadTree const & other);
 		void IsColliding();
+		bool IsColliding(MyRigidBody collider);
 		void Display();
 		void Subdivide();
 		bool IsLeaf();

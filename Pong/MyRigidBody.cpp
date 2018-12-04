@@ -131,6 +131,48 @@ void MyRigidBody::SetModelMatrix(matrix4 a_m4ModelMatrix)
 	//we calculate the distance between min and max vectors
 	m_v3ARBBSize = m_v3MaxG - m_v3MinG;
 }
+void Simplex::MyRigidBody::AddDimension(uint dimension)
+{
+	if (IsInDimension(dimension)) {
+		return;
+	}
+
+	m_lDimensions.push_back(dimension);
+}
+void Simplex::MyRigidBody::ClearDimensionList()
+{
+	m_lDimensions.clear();
+}
+bool Simplex::MyRigidBody::SharesDimension(MyRigidBody other)
+{
+	uint lSize = m_lDimensions.size();
+
+	if (lSize == 0 || other.m_lDimensions.size() == 0) {
+		return true;
+	}
+
+	for (uint i = 0; i < lSize; i++)
+	{
+		if (other.IsInDimension(m_lDimensions[i])) {
+			return true;
+		}
+	}
+
+	return false;
+}
+bool Simplex::MyRigidBody::IsInDimension(uint dimension)
+{
+	uint length = m_lDimensions.size();
+
+	for (uint i = 0; i < length; i++)
+	{
+		if (dimension == m_lDimensions[i]) {
+			return true;
+		}
+	}
+
+	return false;
+}
 //The big 3
 MyRigidBody::MyRigidBody(std::vector<vector3> a_pointList)
 {
@@ -368,6 +410,10 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 }
 bool MyRigidBody::IsColliding(MyRigidBody* const other)
 {
+	if (!SharesDimension(*other)) {
+		return false;
+	}
+
 	//check if spheres are colliding
 	bool bColliding = true;
 	//bColliding = (glm::distance(GetCenterGlobal(), other->GetCenterGlobal()) < m_fRadius + other->m_fRadius);
@@ -410,6 +456,10 @@ bool MyRigidBody::IsColliding(MyRigidBody* const other)
 
 bool Simplex::MyRigidBody::IsCollidingSphere(MyRigidBody * const other)
 {
+	if (!SharesDimension(*other)) {
+		return false;
+	}
+
 	return glm::distance(other->GetCenterGlobal(), GetCenterGlobal()) < other->GetHalfWidth().x+ GetHalfWidth().x;
 }
 
