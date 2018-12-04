@@ -117,6 +117,9 @@ void Application::Update(void)
 		m_lBallList[i]->Display();
 	}
 
+	rootQuad->KillBranches();
+	rootQuad->ConstructList(1, 5);
+
 	// check ball collision with other balls
 	for (int i = 0; i < m_lBallList.size(); i++)
 	{

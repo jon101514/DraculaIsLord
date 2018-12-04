@@ -53,7 +53,9 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 	//get the entity list and the count
 	m_ContainedObjects = rbList;
 
-
+	m_v3Center = mainQuad->GetCenterGlobal();
+	m_v3Max = mainQuad->GetMaxGlobal();
+	m_v3Min = mainQuad->GetMinGlobal();
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -202,10 +204,6 @@ void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
 	}
 
 	mainQuad = new MyRigidBody(m_v3List);
-
-	m_v3Center = mainQuad->GetCenterGlobal();
-	m_v3Max = mainQuad->GetMaxGlobal();
-	m_v3Min = mainQuad->GetMinGlobal();
 
 	Subdivide(maxLevel, ideal_Count);
 	AssignID();
