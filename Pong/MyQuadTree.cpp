@@ -15,11 +15,6 @@ void MyQuadTree::Release()
 	}
 
 	SafeDelete(mainQuad);
-
-	for (uint i = 0; i < m_ContainedObjects.size(); i++)
-	{
-		SafeDelete(m_ContainedObjects[i]);
-	}
 }
 
 void Simplex::MyQuadTree::Swap(MyQuadTree & other)
@@ -145,6 +140,7 @@ bool MyQuadTree::IsColliding(MyRigidBody collider)
 
 void MyQuadTree::Display()
 {
+	mainQuad->AddToRenderList();
 }
 
 void MyQuadTree::Subdivide()
@@ -162,10 +158,17 @@ void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
 
 void MyQuadTree::KillBranches()
 {
+	m_lChild.clear();
+
+	for (uint i = 0; i < 8; i++)
+	{
+		SafeDelete(m_pChildren[i]);
+	}
 }
 
 void Simplex::MyQuadTree::AssignID()
 {
+	AnnihilateID();
 
 	uint leafCount = m_lChild.size();
 	
