@@ -144,6 +144,11 @@ void MyQuadTree::Display()
 	mainQuad->AddToRenderList();
 }
 
+void Simplex::MyQuadTree::AddEntity(MyRigidBody * entity)
+{
+	m_ContainedObjects.push_back(entity);
+}
+
 void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 {
 	//stops the recursive process
