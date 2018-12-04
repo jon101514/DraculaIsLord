@@ -57,49 +57,18 @@ void Application::InitVariables(void)
 	m_sbP2Score.loadFromFile("AsHi.wav");
 	m_sP2Score.setBuffer(m_sbP2Score);
 
-	// Commented this out so that it doesn't generate 500 squares.
-	/*
-	uint uInstances = 500;
-	int nSquare = static_cast<int>(std::sqrt(uInstances));
-	uInstances = nSquare * nSquare;
-	
-	uint uIndex = 0;
-	for (int i = 0; i < nSquare; i++)
-	{
-		for (int j = 0; j < nSquare; j++)
-		{
-			m_pEntityMngr->AddEntity("Minecraft\\Cube.obj");
-			vector3 v3Position = vector3(glm::sphericalRand(34.0f));
-			matrix4 m4Position = glm::translate(v3Position);
-			m_pEntityMngr->SetModelMatrix(m4Position);
-			//m_pEntityMngr->AddDimension(-1, uIndex);
-			//++uIndex;
-			
-			if (v3Position.x < 0.0f)
-			{
-				if (v3Position.x < -17.0f)
-					m_pEntityMngr->AddDimension(-1, 1);
-				else
-					m_pEntityMngr->AddDimension(-1, 2);
-			}
-			else if (v3Position.x > 0.0f)
-			{
-				if (v3Position.x > 17.0f)
-					m_pEntityMngr->AddDimension(-1, 3);
-				else
-					m_pEntityMngr->AddDimension(-1, 4);
-			}
-			
-		}
-	}
-	*/
 	rootQuad = new MyQuadTree(std::vector<MyRigidBody*>());
 	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sP1ID));
 	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sP2ID));
+	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sTWID));
+	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sLWID));
 
 	m_pEntityMngr->Update();
 	//steve
 	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
+
+	rootQuad->KillBranches();
+	rootQuad->ConstructList(1, 0);
 }
 void Application::Update(void)
 {
@@ -161,24 +130,39 @@ void Application::Update(void)
 	}
 
 	if (QuadTree) {
-		/*for (uint i = 0; i < m_lBallList.size(); i++)
+		static uint nClock = m_pSystem->GenClock();
+		static bool bStarted = false;
+		if (m_pSystem->IsTimerDone(nClock) || !bStarted)
 		{
-			MyRigidBody* rb = m_lBallList[i]->GetRigidBody();
+			bStarted = true;
+			m_pSystem->StartTimerOnClock(0.5, nClock);
+			
+			for (uint i = 0; i < m_lBallList.size(); i++)
+			{
+				MyRigidBody* rb = m_lBallList[i]->GetRigidBody();
 
-			rb->ClearDimensionList();
-			if (rb->GetCenterGlobal().x + rb->GetHalfWidth().x < 0.0f) {
-				rb->AddDimension(0);
-			}
-			else {
-				rb->AddDimension(1);
+				rb->ClearDimensionList();
+				if (rb->GetMaxGlobal().x >= 5.0f) {
+					rb->AddDimension(0);
+				}
+				if (rb->GetMaxGlobal().x >= 0.0f && rb->GetMinGlobal().x <= 5.0f) {
+					rb->AddDimension(1);
+				}
+				if (rb->GetMaxGlobal().x >= -5.0f && rb->GetMinGlobal().x <= 0.0f) {
+					rb->AddDimension(2);
+				}
+				if (rb->GetMinGlobal().x <= -5.0f) {
+					rb->AddDimension(3);
+				}
 			}
 		}
 
-		m_pEntityMngr->GetRigidBody(m_sP1ID)->AddDimension(0);
-		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(1);*/
 
-		rootQuad->KillBranches();
-		rootQuad->ConstructList(1, 5);
+		m_pEntityMngr->GetRigidBody(m_sP1ID)->AddDimension(0);
+		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(1);
+
+
+
 		rootQuad->Display();
 	}
 

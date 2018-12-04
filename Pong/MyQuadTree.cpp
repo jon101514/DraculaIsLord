@@ -53,7 +53,15 @@ MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 	//get the entity list and the count
 	m_ContainedObjects = rbList;
 
+	std::vector<vector3> m_v3List;
 
+	for (uint i = 0; i < m_ContainedObjects.size(); i++)
+	{
+		m_v3List.push_back(m_ContainedObjects[i]->GetMaxGlobal());
+		m_v3List.push_back(m_ContainedObjects[i]->GetMaxGlobal());
+	}
+
+	mainQuad = new MyRigidBody(m_v3List);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -208,26 +216,6 @@ bool MyQuadTree::IsLeaf()
 
 void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
 {
-	SafeDelete(mainQuad);
-
-	vector3* m_v3List;
-	m_v3List = new vector3[m_ContainedObjects.size() * 2];
-
-	//create the main quadrant
-	for (int i = 0; i < m_ContainedObjects.size(); i++)
-	{
-		m_v3List[2 * i] =  m_ContainedObjects[i]->GetMaxGlobal();
-		m_v3List[2* i + 1] = (m_ContainedObjects[i]->GetMinGlobal());
-	}
-
-	mainQuad = new MyRigidBody(m_v3List);
-
-	mainQuad->MakeSquare2D();
-
-	m_v3Center = mainQuad->GetCenterGlobal();
-	m_v3Max = mainQuad->GetMaxGlobal();
-	m_v3Min = mainQuad->GetMinGlobal();
-
 	Subdivide(maxLevel, ideal_Count);
 	AssignID();
 }

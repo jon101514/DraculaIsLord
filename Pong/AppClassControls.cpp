@@ -198,6 +198,10 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 	case sf::Keyboard::Num6:
 		if (QuadTree == true) {
 			QuadTree = false;
+			for (uint i = 0; i < m_lBallList.size(); i++)
+			{
+				m_lBallList[i]->GetRigidBody()->ClearDimensionList();
+			}
 			rootQuad->KillBranches();
 			rootQuad->AnnihilateID();
 		}
