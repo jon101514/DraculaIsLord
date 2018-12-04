@@ -10,8 +10,15 @@ void MyQuadTree::Delete()
 {
 }
 
-MyQuadTree::MyQuadTree()
+MyQuadTree::MyQuadTree(std::vector<MyRigidBody*> rbList)
 {
+	Init();
+
+	//set it to the very first octant, the big octant
+	m_pRoot = this;
+
+	//get the entity list and the count
+	m_containedObjects = rbList;
 }
 
 Simplex::MyQuadTree::MyQuadTree(vector3 center, float size)
