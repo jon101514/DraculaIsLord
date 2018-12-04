@@ -202,7 +202,6 @@ void Application::Update(void)
 		MyRigidBody* rbI = currBall->GetRigidBody();
 
 		if (player1->IsColliding(rbI) || player2->IsColliding(rbI)) { // A Player has hit our current ball.
-			// currBall->ChangeDirection(vector3(-1.0f * currBall->GetDirection().x, currBall->GetDirection().y, currBall->GetDirection().z));
 			currBall->ChangeSpeed(); // Also, let's make the ball move a bit faster.
 			if (player1->IsColliding(rbI)) { 
 				currBall->ChangeDirection(vector3(-1.0f * (currBall->GetDirection().x - 1.0f), currBall->GetDirection().y, currBall->GetDirection().z));
@@ -245,6 +244,15 @@ void Application::Display(void)
 }
 void Application::Release(void)
 {
+	// Release Entity Manager [Memory Management].
+	m_pEntityMngr->ReleaseInstance();
+
+	// Release all of the balls.
+	for (int i = 0; i < m_lBallList.size(); i++) {
+		if (m_lBallList[i] != nullptr) {
+			SafeDelete(m_lBallList[i]);
+		}
+	}
 	//release GUI
 	ShutdownGUI();
 }
