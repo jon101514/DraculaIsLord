@@ -71,9 +71,12 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	switch (a_event.key.code)
 	{
 	default: break;
+		/*
+		// Test sound capabilities.
 	case sf::Keyboard::Space:
 		m_sP1.play();
 		break;
+		*/
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = true;
@@ -191,6 +194,16 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		}
 		m_uballCount += 100;
 
+		break;
+	case sf::Keyboard::Num6:
+		if (QuadTree == true) {
+			QuadTree = false;
+			rootQuad->KillBranches();
+			rootQuad->AnnihilateID();
+		}
+		else {
+			QuadTree = true;
+		}
 		break;
 
 	case sf::Keyboard::Z: // toggle reset

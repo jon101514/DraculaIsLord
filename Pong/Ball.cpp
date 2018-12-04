@@ -21,7 +21,7 @@ void Ball::Init(void)
 
 	direction = glm::normalize(direction);
 	//set the speed
-	speed = 1.0f;
+	speed = 5.0f;
 
 	position = vector3(0.0f);
 }

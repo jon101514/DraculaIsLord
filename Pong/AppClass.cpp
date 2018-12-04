@@ -5,11 +5,13 @@ void Application::InitVariables(void)
 	//Alberto needed this at this position for software recording.
 	//m_pWindow->setPosition(sf::Vector2i(710, 0));
 
-	//Set the position and target of the camera
+	//Set the position and target of the camera so that it's focused on the game.
 	m_pCameraMngr->SetPositionTargetAndUpward(
 		vector3(0.0f, 0.0f, 100.0f), //Position
 		vector3(0.0f, 0.0f, 99.0f),	//Target
 		AXIS_Y);					//Up
+	m_pCameraMngr->SetCameraMode(CAM_ORTHO_Z);
+	m_pCameraMngr->SetPosition(vector3(0.0f, -1.5f, 16.0f));
 
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 	
@@ -20,24 +22,28 @@ void Application::InitVariables(void)
 	m_v3Player1 = vector3(-10.0f, 0.0f, 0.0f);
 	matrix4 m4Position = glm::translate(m_v3Player1);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sP1ID)->SetColorColliding(vector3(1.0f));
 	
 	// Create the second paddle.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sP2ID);
 	m_v3Player2 = vector3(10.0f, 0.0f, 0.0f);
 	m4Position = glm::translate(m_v3Player2);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sP2ID)->SetColorColliding(vector3(1.0f));
 
 	// Make the top wall.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sTWID);
 	m_v3TopWall = vector3(-0.5f, 15.5f, 0.0f);
 	m4Position = glm::translate(m_v3TopWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sTWID)->SetColorColliding(vector3(1.0f));
 
 	// Make the bottom wall.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sLWID);
 	m_v3LowWall = vector3(-0.5f, -13.5f, 0.0f);
 	m4Position = glm::translate(m_v3LowWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
+	m_pEntityMngr->GetRigidBody(m_sLWID)->SetColorColliding(vector3(1.0f));
 
 	// Set up our Sound Buffers so that we may play sound effects.
 	m_sbP1.loadFromFile("FsLo.wav");
@@ -154,8 +160,28 @@ void Application::Update(void)
 		m_lBallList[i]->Display();
 	}
 
-	rootQuad->KillBranches();
-	rootQuad->ConstructList(1, 5);
+	if (QuadTree) {
+		/*for (uint i = 0; i < m_lBallList.size(); i++)
+		{
+			MyRigidBody* rb = m_lBallList[i]->GetRigidBody();
+
+			rb->ClearDimensionList();
+			if (rb->GetCenterGlobal().x + rb->GetHalfWidth().x < 0.0f) {
+				rb->AddDimension(0);
+			}
+			else {
+				rb->AddDimension(1);
+			}
+		}
+
+		m_pEntityMngr->GetRigidBody(m_sP1ID)->AddDimension(0);
+		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(1);*/
+
+		rootQuad->KillBranches();
+		rootQuad->ConstructList(1, 5);
+		rootQuad->Display();
+	}
+
 
 	// check ball collision with other balls
 	for (int i = 0; i < m_lBallList.size(); i++)
@@ -196,14 +222,22 @@ void Application::Update(void)
 		MyRigidBody* rbI = currBall->GetRigidBody();
 
 		if (player1->IsColliding(rbI) || player2->IsColliding(rbI)) { // A Player has hit our current ball.
-			currBall->ChangeDirection(vector3(-1 * currBall->GetDirection().x, currBall->GetDirection().y, currBall->GetDirection().z));
 			currBall->ChangeSpeed(); // Also, let's make the ball move a bit faster.
-			if (player1->IsColliding(rbI)) { m_sP1.play(); }
-			else { m_sP2.play(); }
+			if (player1->IsColliding(rbI)) { 
+				currBall->ChangeDirection(vector3(-1.0f * (currBall->GetDirection().x - 1.0f), currBall->GetDirection().y, currBall->GetDirection().z));
+				m_sP1.play(); 
+			} else { 
+				currBall->ChangeDirection(vector3(-1.0f * (currBall->GetDirection().x + 1.0f), currBall->GetDirection().y, currBall->GetDirection().z));
+				m_sP2.play(); 
+			}
 		}
 		if (topWall->IsColliding(rbI) || lowWall->IsColliding(rbI)) { // A ball has contacted a wall.
-			currBall->ChangeDirection(vector3(currBall->GetDirection().x, -1 * currBall->GetDirection().y, currBall->GetDirection().z));
 			m_sWall.play();
+			if (topWall->IsColliding(rbI)) {
+				currBall->ChangeDirection(vector3(currBall->GetDirection().x, (-1.0f * (currBall->GetDirection().y + 1.0f)), currBall->GetDirection().z));
+			} else {
+				currBall->ChangeDirection(vector3(currBall->GetDirection().x, (-1.0f * (currBall->GetDirection().y - 1.0f)), currBall->GetDirection().z));
+			}
 		}
 	}
 }
@@ -230,6 +264,15 @@ void Application::Display(void)
 }
 void Application::Release(void)
 {
+	// Release Entity Manager [Memory Management].
+	m_pEntityMngr->ReleaseInstance();
+
+	// Release all of the balls.
+	for (int i = 0; i < m_lBallList.size(); i++) {
+		if (m_lBallList[i] != nullptr) {
+			SafeDelete(m_lBallList[i]);
+		}
+	}
 	//release GUI
 	ShutdownGUI();
 }

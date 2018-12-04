@@ -25,6 +25,7 @@ namespace Simplex
 
 		MyQuadTree* m_pRoot = nullptr;
 		std::vector<MyQuadTree*> m_lChild;
+		std::vector<vector3> pointList;
 
 	public:
 		void Init();
@@ -35,7 +36,7 @@ namespace Simplex
 		~MyQuadTree();
 		MyQuadTree(MyQuadTree const &other);
 		MyQuadTree & operator=(MyQuadTree const & other);
-		bool IsColliding(MyRigidBody collider);
+		bool IsColliding(MyRigidBody* collider);
 		void Display();
 		void AddEntity(MyRigidBody* entity);
 		void Subdivide(int maxLevel, int ideal_Count);

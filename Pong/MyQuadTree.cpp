@@ -72,6 +72,9 @@ Simplex::MyQuadTree::MyQuadTree(vector3 center, float size)
 
 	//create the root shell
 	mainQuad = new MyRigidBody(v3MaxMin_List);
+
+	m_v3Max = mainQuad->GetMaxGlobal();
+	m_v3Min = mainQuad->GetMinGlobal();
 }
 
 MyQuadTree::~MyQuadTree()
@@ -117,21 +120,21 @@ MyQuadTree & Simplex::MyQuadTree::operator=(MyQuadTree const & other)
 	return *this;
 }
 
-bool MyQuadTree::IsColliding(MyRigidBody collider)
+bool MyQuadTree::IsColliding(MyRigidBody* collider)
 {
-	if (m_v3Max.x < collider.GetMinGlobal().x) {
+	if (m_v3Max.x < collider->GetMinGlobal().x) {
 
 		return false;
 	}
-	if (m_v3Min.x > collider.GetMaxGlobal().x) {
+	if (m_v3Min.x > collider->GetMaxGlobal().x) {
 
 		return false;
 	}
-	if (m_v3Max.y < collider.GetMinGlobal().y) {
+	if (m_v3Max.y < collider->GetMinGlobal().y) {
 
 		return false;
 	}
-	if (m_v3Min.y > collider.GetMaxGlobal().y) {
+	if (m_v3Min.y > collider->GetMaxGlobal().y) {
 
 		return false;
 	}
@@ -142,6 +145,14 @@ bool MyQuadTree::IsColliding(MyRigidBody collider)
 void MyQuadTree::Display()
 {
 	mainQuad->AddToRenderList();
+
+	if (m_pChildren[0] != nullptr) {
+		/*for (uint i = 0; i < 4; i++)
+		{
+			m_pChildren[i]->Display();
+		}*/
+		m_pChildren[0]->Display();
+	}
 }
 
 void Simplex::MyQuadTree::AddEntity(MyRigidBody * entity)
@@ -174,7 +185,9 @@ void MyQuadTree::Subdivide(int maxLevel, int ideal_Count)
 		//check every entity under the child
 		for (uint j = 0; j < m_ContainedObjects.size(); j++)
 		{
-			m_pChildren[i]->IsColliding(*m_ContainedObjects[j]);
+			if (m_pChildren[i]->IsColliding(m_ContainedObjects[j])) {
+				m_pChildren[i]->m_ContainedObjects.push_back(m_ContainedObjects[j]);
+			}
 		}
 		
 		m_pChildren[i]->m_uID = i * glm::pow(10, m_uID) + m_uID;
@@ -197,16 +210,19 @@ void MyQuadTree::ConstructList(int maxLevel, int ideal_Count)
 {
 	SafeDelete(mainQuad);
 
-	std::vector<vector3> m_v3List;
+	vector3* m_v3List;
+	m_v3List = new vector3[m_ContainedObjects.size() * 2];
 
 	//create the main quadrant
 	for (int i = 0; i < m_ContainedObjects.size(); i++)
 	{
-		m_v3List.push_back(m_v3Min);
-		m_v3List.push_back(m_v3Max);
+		m_v3List[2 * i] =  m_ContainedObjects[i]->GetMaxGlobal();
+		m_v3List[2* i + 1] = (m_ContainedObjects[i]->GetMinGlobal());
 	}
 
 	mainQuad = new MyRigidBody(m_v3List);
+
+	mainQuad->MakeSquare2D();
 
 	m_v3Center = mainQuad->GetCenterGlobal();
 	m_v3Max = mainQuad->GetMaxGlobal();
@@ -239,7 +255,7 @@ void Simplex::MyQuadTree::AssignID()
 
 		for (uint j = 0; j < entityCount; j++)
 		{
-			m_lChild[i]->m_ContainedObjects[j]->AddDimension(m_uID);
+			m_lChild[i]->m_ContainedObjects[j]->AddDimension(m_lChild[i]->m_uID);
 		}
 	}
 }
