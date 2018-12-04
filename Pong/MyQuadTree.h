@@ -37,7 +37,7 @@ namespace Simplex
 		MyQuadTree & operator=(MyQuadTree const & other);
 		bool IsColliding(MyRigidBody collider);
 		void Display();
-		void Subdivide();
+		void Subdivide(int maxLevel, int ideal_Count);
 		bool IsLeaf();
 		void ConstructList(int maxLevel, int ideal_Count);
 		void KillBranches();
