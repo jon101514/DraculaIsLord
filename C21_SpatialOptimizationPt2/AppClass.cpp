@@ -53,7 +53,7 @@ void Application::Update(void)
 		if (m_pSystem->IsTimerDone(nClock) || !bStarted)
 		{
 			bStarted = true;
-			m_pSystem->StartTimerOnClock(0.5, nClock);
+			m_pSystem->StartTimerOnClock(1, nClock);
 			SafeDelete(m_pRoot);
 			m_pRoot = new Octant(m_uOctantLevels, 5);
 		}

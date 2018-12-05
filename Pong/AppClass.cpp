@@ -37,14 +37,20 @@ void Application::InitVariables(void)
 	m4Position = glm::translate(m_v3TopWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
 	m_pEntityMngr->GetRigidBody(m_sTWID)->SetColorColliding(vector3(1.0f));
-
+	m_pEntityMngr->GetRigidBody(m_sTWID)->AddDimension(0);
+	m_pEntityMngr->GetRigidBody(m_sTWID)->AddDimension(1);
+	m_pEntityMngr->GetRigidBody(m_sTWID)->AddDimension(2);
+	m_pEntityMngr->GetRigidBody(m_sTWID)->AddDimension(3);
 	// Make the bottom wall.
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sLWID);
 	m_v3LowWall = vector3(-0.5f, -13.5f, 0.0f);
 	m4Position = glm::translate(m_v3LowWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
 	m_pEntityMngr->GetRigidBody(m_sLWID)->SetColorColliding(vector3(1.0f));
-
+	m_pEntityMngr->GetRigidBody(m_sLWID)->AddDimension(0);
+	m_pEntityMngr->GetRigidBody(m_sLWID)->AddDimension(1);
+	m_pEntityMngr->GetRigidBody(m_sLWID)->AddDimension(2);
+	m_pEntityMngr->GetRigidBody(m_sLWID)->AddDimension(3);
 	// Set up our Sound Buffers so that we may play sound effects.
 	m_sbP1.loadFromFile("FsLo.wav");
 	m_sP1.setBuffer(m_sbP1);
@@ -140,7 +146,7 @@ void Application::Update(void)
 		if (m_pSystem->IsTimerDone(nClock) || !bStarted)
 		{
 			bStarted = true;
-			m_pSystem->StartTimerOnClock(0.5, nClock);
+			m_pSystem->StartTimerOnClock(1, nClock);
 
 			for (uint i = 0; i < m_lBallList.size(); i++)
 			{
