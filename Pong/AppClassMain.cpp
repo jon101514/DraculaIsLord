@@ -66,6 +66,34 @@ void Application::ResetBalls()
 		m_uballCount++;
 	}
 }
+
+void Application::DisplayWinner()
+{
+	if (m_n1PScore == 3 || m_n2PScore == 3)
+	{
+		for (int i = 0; i < m_lBallList.size(); i++) // delete the current balls
+		{
+			if (i <= m_lBallList.size())
+				if (m_lBallList[i] != nullptr)
+					SafeDelete(m_lBallList[i]);
+		}
+		m_uballCount = 0;
+		m_lBallList.clear();
+
+		if (m_n1PScore == 3)
+			winner = 1;
+		else if (m_n2PScore == 3)
+			winner = 2;
+	}
+}
+
+void Application::ResetGame()
+{
+	ResetBalls();
+	m_n1PScore = 0;
+	m_n2PScore = 0;
+}
+
 Application::~Application(void)
 {
 	Release();

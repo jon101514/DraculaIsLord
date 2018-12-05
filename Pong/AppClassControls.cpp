@@ -212,8 +212,18 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		}
 		break;
 	case sf::Keyboard::X: // manually reset balls
-		ResetBalls();
+		{
+			resetEnable = true;
+			ResetBalls();
+		}
 		break;
+	case sf::Keyboard::C: // reset game if there is a winner
+		{
+			if (winner == 1 || winner == 2)
+			{
+				ResetGame();
+			}
+		}
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;

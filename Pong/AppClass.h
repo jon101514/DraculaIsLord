@@ -101,9 +101,12 @@ private:
 //	sf::Music m_soundBGM; //background music
 
 	bool resetEnable = true;
+	int winner = 0; // 0=no winner, 1=player1, 2=player2
 
 public:
-	void ResetBalls(void);
+	void ResetBalls(void); // reset balls after a point is scored
+	void ResetGame(void); // reset game after a player wins
+	void DisplayWinner(void); // stop the game and display a winner
 #pragma region Constructor / Run / Destructor
 	/*
 	USAGE: Constructor
