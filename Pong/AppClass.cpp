@@ -32,8 +32,8 @@ void Application::InitVariables(void)
 	m_pEntityMngr->GetRigidBody(m_sP2ID)->SetColorColliding(vector3(1.0f));
 
 	// Make the top wall.
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sTWID);
-	m_v3TopWall = vector3(-0.5f, 15.5f, 0.0f);
+	m_pEntityMngr->AddEntity("Pong\\Wall.obj", m_sTWID);
+	m_v3TopWall = vector3(0.0f, 15.5f, 0.0f);
 	m4Position = glm::translate(m_v3TopWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
 	m_pEntityMngr->GetRigidBody(m_sTWID)->SetColorColliding(vector3(1.0f));
@@ -42,8 +42,8 @@ void Application::InitVariables(void)
 	m_pEntityMngr->GetRigidBody(m_sTWID)->AddDimension(2);
 	m_pEntityMngr->GetRigidBody(m_sTWID)->AddDimension(3);
 	// Make the bottom wall.
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sLWID);
-	m_v3LowWall = vector3(-0.5f, -13.5f, 0.0f);
+	m_pEntityMngr->AddEntity("Pong\\Wall.obj", m_sLWID);
+	m_v3LowWall = vector3(0.0f, -13.5f, 0.0f);
 	m4Position = glm::translate(m_v3LowWall);
 	m_pEntityMngr->SetModelMatrix(m4Position);
 	m_pEntityMngr->GetRigidBody(m_sLWID)->SetColorColliding(vector3(1.0f));

@@ -25,6 +25,7 @@ void Ball::Init(void)
 
 	position = vector3(0.0f);
 }
+
 void Ball::Swap(Ball& other)
 {
 	//std::swap(m_nData, other.m_nData);
