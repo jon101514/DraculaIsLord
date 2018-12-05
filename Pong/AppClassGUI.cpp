@@ -58,12 +58,16 @@ void Application::DrawGUI(void)
 			ImGui::Text("	 Num5: Add 100 Balls\n");
 			ImGui::Text("	 Z: Toggle Automatic Reset\n");
 			ImGui::Text("	 X: Manual Reset\n");
+			ImGui::Text("	 C: Reset Game\n");
 			ImGui::Separator();
 			if(QuadTree)
 				ImGui::TextColored(ImColor(255, 255, 0), "Spatial Optimization\n");
 
 			ImGui::Text("SCORE\n");
 			ImGui::Text("1P\t%d | %d\t2P", m_n1PScore, m_n2PScore);
+
+			ImGui::Separator();
+			ImGui::Text("Winner: %u\n", winner);
 		}
 		ImGui::End();
 	}

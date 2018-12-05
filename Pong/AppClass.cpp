@@ -137,6 +137,11 @@ void Application::Update(void)
 		}
 	}
 
+	if (m_n1PScore == 3 || m_n2PScore == 3)
+	{
+		DisplayWinner();
+	}
+
 	if (QuadTree) {
 		static bool bStarted = false;
 		if (m_pSystem->IsTimerDone(uClock) || !bStarted)
