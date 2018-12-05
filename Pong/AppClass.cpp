@@ -18,14 +18,14 @@ void Application::InitVariables(void)
 	//Entity Manager
 	m_pEntityMngr = MyEntityManager::GetInstance();
 	// Create the first paddle.
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sP1ID);
+	m_pEntityMngr->AddEntity("Pong\\PinkPaddle.obj", m_sP1ID);
 	m_v3Player1 = vector3(-10.0f, 0.0f, 0.0f);
 	matrix4 m4Position = glm::translate(m_v3Player1);
 	m_pEntityMngr->SetModelMatrix(m4Position);
 	m_pEntityMngr->GetRigidBody(m_sP1ID)->SetColorColliding(vector3(1.0f));
 	
 	// Create the second paddle.
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", m_sP2ID);
+	m_pEntityMngr->AddEntity("Pong\\GreenPaddle.obj", m_sP2ID);
 	m_v3Player2 = vector3(10.0f, 0.0f, 0.0f);
 	m4Position = glm::translate(m_v3Player2);
 	m_pEntityMngr->SetModelMatrix(m4Position);
