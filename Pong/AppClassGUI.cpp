@@ -43,6 +43,8 @@ void Application::DrawGUI(void)
 			ImGui::Text("BallCount: %u\n",
 				m_uballCount);
 			ImGui::Text("Reset Enabled: %u\n", resetEnable);
+			ImGui::Text("Winning Enabled: %u\n", winnerEnable);
+
 			ImGui::Text("Control:\n");
 			ImGui::Text("R / F: 1P Up / Down\n");
 			ImGui::Text("U / J: 2P Up / Down\n");
@@ -59,6 +61,7 @@ void Application::DrawGUI(void)
 			ImGui::Text("	 Z: Toggle Automatic Reset\n");
 			ImGui::Text("	 X: Manual Reset\n");
 			ImGui::Text("	 C: Reset Game\n");
+			ImGui::Text("	 B: Toggle Winning\n");
 			ImGui::Separator();
 			if(QuadTree)
 				ImGui::TextColored(ImColor(255, 255, 0), "Spatial Optimization\n");

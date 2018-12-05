@@ -101,6 +101,7 @@ private:
 //	sf::Music m_soundBGM; //background music
 
 	bool resetEnable = true;
+	bool winnerEnable = true;
 	int winner = 0; // 0=no winner, 1=player1, 2=player2
 
 public:

@@ -221,9 +221,14 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		{
 			if (winner == 1 || winner == 2)
 			{
+				winner = 0;
 				ResetGame();
 			}
 		}
+		break;
+	case sf::Keyboard::B:
+		winnerEnable = !winnerEnable;
+		break;
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;
