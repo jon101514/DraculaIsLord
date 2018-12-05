@@ -439,9 +439,9 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 }
 bool MyRigidBody::IsColliding(MyRigidBody* const other)
 {
-	if (!SharesDimension(other)) {
+	/*if (!SharesDimension(other)) {
 		return false;
-	}
+	}*/
 
 	//check if spheres are colliding
 	bool bColliding = true;
@@ -485,9 +485,9 @@ bool MyRigidBody::IsColliding(MyRigidBody* const other)
 
 bool Simplex::MyRigidBody::IsCollidingSphere(MyRigidBody * const other)
 {
-	if (!SharesDimension(other)) {
+	/*if (!SharesDimension(other)) {
 		return false;
-	}
+	}*/
 
 	bool bColliding = true;
 

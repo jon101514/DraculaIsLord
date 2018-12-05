@@ -62,7 +62,6 @@ void Application::ResetBalls()
 	// spawn a new ball in the middle
 	Ball* TempBall = new Ball();
 	m_lBallList.push_back(TempBall);
-	rootQuad->AddEntity(TempBall->GetRigidBody());
 	m_uballCount++;
 	
 }

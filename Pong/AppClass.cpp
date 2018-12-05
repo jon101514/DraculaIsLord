@@ -63,18 +63,10 @@ void Application::InitVariables(void)
 	m_sbP2Score.loadFromFile("AsHi.wav");
 	m_sP2Score.setBuffer(m_sbP2Score);
 
-	rootQuad = new MyQuadTree(std::vector<MyRigidBody*>());
-	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sP1ID));
-	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sP2ID));
-	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sTWID));
-	rootQuad->AddEntity(m_pEntityMngr->GetRigidBody(m_sLWID));
-
 	m_pEntityMngr->Update();
 	//steve
 	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
 
-	rootQuad->KillBranches();
-	rootQuad->ConstructList(1, 0);
 }
 void Application::Update(void)
 {
@@ -120,9 +112,9 @@ void Application::Update(void)
 	//Update Entity Manager
 	m_pEntityMngr->Update();
 
-	m_pMeshMngr->AddGridToRenderList(glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
-	m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(-17.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
-	m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(17.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
+	//m_pMeshMngr->AddGridToRenderList(glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
+	//m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(-17.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
+	//m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(17.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
 		
 	//Add objects to render list
 	m_pEntityMngr->AddEntityToRenderList(-1, true);
@@ -138,15 +130,24 @@ void Application::Update(void)
 
 	if (resetEnable && wasScore) {
 		ResetBalls();
+
+		for (uint i = 0; i < 4; i++)
+		{
+			quads[i].clear();
+		}
 	}
 
 	if (QuadTree) {
-		static uint nClock = m_pSystem->GenClock();
 		static bool bStarted = false;
-		if (m_pSystem->IsTimerDone(nClock) || !bStarted)
+		if (m_pSystem->IsTimerDone(uClock) || !bStarted)
 		{
 			bStarted = true;
-			m_pSystem->StartTimerOnClock(1, nClock);
+			m_pSystem->StartTimerOnClock(.5, uClock);
+
+			for (uint i = 0; i < 4; i++)
+			{
+				quads[i].clear();
+			}
 
 			for (uint i = 0; i < m_lBallList.size(); i++)
 			{
@@ -154,54 +155,86 @@ void Application::Update(void)
 
 				rb->ClearDimensionList();
 				if (rb->GetMaxGlobal().x >= 0.0f && rb->GetMinGlobal().y <= 0) {
-					rb->AddDimension(0);
+					quads[0].push_back(m_lBallList[i]);
 				}
 				if (rb->GetMaxGlobal().x >= 0.0f && rb->GetMaxGlobal().y >= 0.0f) {
-					rb->AddDimension(1);
+					quads[1].push_back(m_lBallList[i]);
 				}
 				if (rb->GetMinGlobal().x <= 0.0f && rb->GetMaxGlobal().y >= 0.0f) {
-					rb->AddDimension(2);
+					quads[2].push_back(m_lBallList[i]);
 				}
 				if (rb->GetMinGlobal().x <= 0.0f && rb->GetMinGlobal().y <= 0.0f) {
-					rb->AddDimension(3);
+					quads[3].push_back(m_lBallList[i]);
 				}
 			}
 		}
 
+		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(10, -10, 0)), vector3(20.0f)), C_WHITE);
+		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(-10, 10, 0)), vector3(20.0f)), C_WHITE);
+		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(-10, -10, 0)), vector3(20.0f)) , C_WHITE);
+		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(10, 10, 0)), vector3(20.0f)), C_WHITE);
 
-		m_pEntityMngr->GetRigidBody(m_sP1ID)->AddDimension(0);
-		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(3);
-
-
-
-		rootQuad->Display();
 	}
 
-
-	// check ball collision with other balls
-	for (int i = 0; i < m_lBallList.size(); i++)
-	{
-		MyRigidBody* rbI;
-		rbI = m_lBallList[i]->GetRigidBody();
-
-		for (int j = i + 1; j < m_lBallList.size(); j++)
+	if (!QuadTree) {
+		// check ball collision with other balls
+		for (int i = 0; i < m_lBallList.size(); i++)
 		{
-			MyRigidBody* rbJ = m_lBallList[j]->GetRigidBody();
+			MyRigidBody* rbI;
+			rbI = m_lBallList[i]->GetRigidBody();
 
-			if (rbI->IsCollidingSphere(rbJ)) 
+			for (int j = i + 1; j < m_lBallList.size(); j++)
 			{
-				
-				vector3 movement = m_lBallList[i]->GetPosition() - m_lBallList[j]->GetPosition();
+				MyRigidBody* rbJ = m_lBallList[j]->GetRigidBody();
 
-				float distToMove = 1 - glm::distance(m_lBallList[i]->GetPosition(), m_lBallList[j]->GetPosition());
+				if (rbI->IsCollidingSphere(rbJ))
+				{
 
-				movement = glm::normalize(movement) * distToMove;
+					vector3 movement = m_lBallList[i]->GetPosition() - m_lBallList[j]->GetPosition();
 
-				m_lBallList[i]->Move(movement);
-				m_lBallList[j]->Move(-1 * movement);
+					float distToMove = 1 - glm::distance(m_lBallList[i]->GetPosition(), m_lBallList[j]->GetPosition());
 
-				m_lBallList[i]->ChangeDirection(movement);
-				m_lBallList[j]->ChangeDirection(-1 * movement);
+					movement = glm::normalize(movement) * distToMove;
+
+					m_lBallList[i]->Move(movement);
+					m_lBallList[j]->Move(-1 * movement);
+
+					m_lBallList[i]->ChangeDirection(movement);
+					m_lBallList[j]->ChangeDirection(-1 * movement);
+				}
+			}
+		}
+	}
+	else {
+		for (uint k = 0; k < 4; k++)
+		{
+			uint ballCount = quads[k].size();
+			// check ball collision with other balls
+			for (int i = 0; i < ballCount; i++)
+			{
+				MyRigidBody* rbI;
+				rbI = quads[k][i]->GetRigidBody();
+
+				for (int j = i + 1; j < quads[k].size(); j++)
+				{
+					MyRigidBody* rbJ = quads[k][j]->GetRigidBody();
+
+					if (rbI->IsCollidingSphere(rbJ))
+					{
+
+						vector3 movement = quads[k][i]->GetPosition() - quads[k][j]->GetPosition();
+
+						float distToMove = 1 - glm::distance(quads[k][i]->GetPosition(), quads[k][j]->GetPosition());
+
+						movement = glm::normalize(movement) * distToMove;
+
+						quads[k][i]->Move(movement);
+						quads[k][j]->Move(-1 * movement);
+
+						quads[k][i]->ChangeDirection(movement);
+						quads[k][j]->ChangeDirection(-1 * movement);
+					}
+				}
 			}
 		}
 	}

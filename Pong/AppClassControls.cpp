@@ -145,7 +145,6 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		{
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			rootQuad->AddEntity(TempBall->GetRigidBody());
 		}
 
 			m_uballCount++;
@@ -157,7 +156,6 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			//BallCreationCode 
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			rootQuad->AddEntity(TempBall->GetRigidBody());
 		}
 		m_uballCount += 5;
 
@@ -168,7 +166,6 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			//BallCreationCode 
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			rootQuad->AddEntity(TempBall->GetRigidBody());
 		}
 		m_uballCount += 10;
 		break;
@@ -179,7 +176,6 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			rootQuad->AddEntity(TempBall->GetRigidBody());
 		}
 		m_uballCount += 50;
 		break;
@@ -190,7 +186,6 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			
 			Ball* TempBall = new Ball();
 			m_lBallList.push_back(TempBall);
-			rootQuad->AddEntity(TempBall->GetRigidBody());
 		}
 		m_uballCount += 100;
 

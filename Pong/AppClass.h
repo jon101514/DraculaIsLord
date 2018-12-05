@@ -80,6 +80,8 @@ private:
 	ControllerInput* m_pController[8]; //Controller
 	uint m_uActCont = 0; //Active Controller of the Application
 
+	std::vector<Ball*> quads[4];
+
 	// Sound buffers for the five sound effects we have in our game.
 	// Player 1's Paddle Hit.
 	sf::SoundBuffer m_sbP1; 
@@ -97,8 +99,6 @@ private:
 	sf::SoundBuffer m_sbP2Score;
 	sf::Sound m_sP2Score;
 //	sf::Music m_soundBGM; //background music
-	
-	MyQuadTree* rootQuad = nullptr;
 
 	bool resetEnable = true;
 
