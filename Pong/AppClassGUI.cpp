@@ -42,6 +42,7 @@ void Application::DrawGUI(void)
 				ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
 			ImGui::Text("BallCount: %u\n",
 				m_uballCount);
+			ImGui::Text("Reset Enabled: %u\n", resetEnable);
 			ImGui::Text("Control:\n");
 			ImGui::Text("R / F: 1P Up / Down\n");
 			ImGui::Text("U / J: 2P Up / Down\n");

@@ -49,21 +49,22 @@ bool Application::AddScore(Ball* currBall) {
 
 void Application::ResetBalls()
 {
-	
-	for (int i = 0; i < m_lBallList.size(); i++) // delete the current balls
+	if (resetEnable)
 	{
-		if (i <= m_lBallList.size())
-			if (m_lBallList[i] != nullptr)
-				SafeDelete(m_lBallList[i]);
-	}
-	m_uballCount = 0;
-	m_lBallList.clear();
+		for (int i = 0; i < m_lBallList.size(); i++) // delete the current balls
+		{
+			if (i <= m_lBallList.size())
+				if (m_lBallList[i] != nullptr)
+					SafeDelete(m_lBallList[i]);
+		}
+		m_uballCount = 0;
+		m_lBallList.clear();
 
-	// spawn a new ball in the middle
-	Ball* TempBall = new Ball();
-	m_lBallList.push_back(TempBall);
-	m_uballCount++;
-	
+		// spawn a new ball in the middle
+		Ball* TempBall = new Ball();
+		m_lBallList.push_back(TempBall);
+		m_uballCount++;
+	}
 }
 Application::~Application(void)
 {
