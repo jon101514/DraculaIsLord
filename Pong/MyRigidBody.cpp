@@ -489,6 +489,27 @@ bool Simplex::MyRigidBody::IsCollidingSphere(MyRigidBody * const other)
 		return false;
 	}
 
+	bool bColliding = true;
+
+	if (this->m_v3MaxG.x < other->m_v3MinG.x) //this to the right of other
+		bColliding = false;
+	if (this->m_v3MinG.x > other->m_v3MaxG.x) //this to the left of other
+		bColliding = false;
+
+	if (this->m_v3MaxG.y < other->m_v3MinG.y) //this below of other
+		bColliding = false;
+	if (this->m_v3MinG.y > other->m_v3MaxG.y) //this above of other
+		bColliding = false;
+
+	if (this->m_v3MaxG.z < other->m_v3MinG.z) //this behind of other
+		bColliding = false;
+	if (this->m_v3MinG.z > other->m_v3MaxG.z) //this in front of other
+		bColliding = false;
+
+	if (!bColliding) {
+		return false;
+	}
+
 	return glm::distance(other->GetCenterGlobal(), GetCenterGlobal()) < other->GetHalfWidth().x+ GetHalfWidth().x;
 }
 

@@ -202,8 +202,6 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			{
 				m_lBallList[i]->GetRigidBody()->ClearDimensionList();
 			}
-			rootQuad->KillBranches();
-			rootQuad->AnnihilateID();
 		}
 		else {
 			QuadTree = true;
@@ -211,21 +209,21 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		break;
 
 	case sf::Keyboard::Z: // toggle reset
-	{
-		if (resetEnable)
-			resetEnable = false;
-		else if (!resetEnable)
-			resetEnable = true;
-	}
-
+		{
+			if (resetEnable)
+				resetEnable = false;
+			else if (!resetEnable)
+				resetEnable = true;
+		}
+		break;
 	case sf::Keyboard::X: // manually reset balls
 		ResetBalls();
-
+		break;
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;
 	}
-
+	
 	//gui
 	gui.io.KeysDown[a_event.key.code] = false;
 	gui.io.KeyCtrl = a_event.key.control;

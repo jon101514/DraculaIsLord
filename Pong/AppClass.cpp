@@ -147,16 +147,16 @@ void Application::Update(void)
 				MyRigidBody* rb = m_lBallList[i]->GetRigidBody();
 
 				rb->ClearDimensionList();
-				if (rb->GetMaxGlobal().x >= 5.0f) {
+				if (rb->GetMaxGlobal().x >= 0.0f && rb->GetMinGlobal().y <= 0) {
 					rb->AddDimension(0);
 				}
-				if (rb->GetMaxGlobal().x >= 0.0f && rb->GetMinGlobal().x <= 5.0f) {
+				if (rb->GetMaxGlobal().x >= 0.0f && rb->GetMaxGlobal().y >= 0.0f) {
 					rb->AddDimension(1);
 				}
-				if (rb->GetMaxGlobal().x >= -5.0f && rb->GetMinGlobal().x <= 0.0f) {
+				if (rb->GetMinGlobal().x <= 0.0f && rb->GetMaxGlobal().y >= 0.0f) {
 					rb->AddDimension(2);
 				}
-				if (rb->GetMinGlobal().x <= -5.0f) {
+				if (rb->GetMinGlobal().x <= 0.0f && rb->GetMinGlobal().y <= 0.0f) {
 					rb->AddDimension(3);
 				}
 			}
@@ -164,7 +164,7 @@ void Application::Update(void)
 
 
 		m_pEntityMngr->GetRigidBody(m_sP1ID)->AddDimension(0);
-		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(1);
+		m_pEntityMngr->GetRigidBody(m_sP2ID)->AddDimension(3);
 
 
 
