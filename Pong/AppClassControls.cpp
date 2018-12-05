@@ -190,7 +190,7 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		m_uballCount += 100;
 
 		break;
-	case sf::Keyboard::Num6:
+	case sf::Keyboard::Num6: // Break up the screen into quadrants for spacial optimization.
 		if (QuadTree == true) {
 			QuadTree = false;
 			for (uint i = 0; i < m_lBallList.size(); i++)

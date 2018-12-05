@@ -58,13 +58,14 @@ void Application::DrawGUI(void)
 			ImGui::Text("	 Num3: Add 10 Balls\n");
 			ImGui::Text("	 Num4: Add 50 Balls\n");
 			ImGui::Text("	 Num5: Add 100 Balls\n");
+			ImGui::Text("	 Num6: Toggle Spacial Optimization\n");
 			ImGui::Text("	 Z: Toggle Automatic Reset\n");
 			ImGui::Text("	 X: Manual Reset\n");
 			ImGui::Text("	 C: Reset Game\n");
 			ImGui::Text("	 B: Toggle Winning\n");
 			ImGui::Separator();
 			if(QuadTree)
-				ImGui::TextColored(ImColor(255, 255, 0), "Spatial Optimization\n");
+				ImGui::TextColored(ImColor(255, 255, 0), "Spatial Optimization On\n");
 
 			ImGui::Text("SCORE\n");
 			ImGui::Text("1P\t%d | %d\t2P", m_n1PScore, m_n2PScore);
