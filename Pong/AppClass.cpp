@@ -113,7 +113,7 @@ void Application::Update(void)
 	m_pEntityMngr->Update();
 
 	//m_pMeshMngr->AddGridToRenderList(glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
-	//m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(-17.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
+	
 	//m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(17.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
 		
 	//Add objects to render list
@@ -169,11 +169,8 @@ void Application::Update(void)
 			}
 		}
 
-		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(10, -10, 0)), vector3(20.0f)), C_WHITE);
-		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(-10, 10, 0)), vector3(20.0f)), C_WHITE);
-		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(-10, -10, 0)), vector3(20.0f)) , C_WHITE);
-		m_pMeshMngr->AddWireCubeToRenderList(glm::scale(glm::translate(IDENTITY_M4, vector3(10, 10, 0)), vector3(20.0f)), C_WHITE);
-
+		m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(0.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_Y));
+		m_pMeshMngr->AddGridToRenderList(glm::translate(vector3(0.0f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 1.5708f, AXIS_X));
 	}
 
 	if (!QuadTree) {
